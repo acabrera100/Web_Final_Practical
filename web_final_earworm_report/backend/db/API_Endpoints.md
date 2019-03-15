@@ -23,13 +23,15 @@ Songs
 
 (NOTES- not returning my new song after I created it)   
 <!-- - DELETE single song -->
+NOTES: NEEDS CASE SENSITIVITY
+
 
 Favorites
-- GET all favorites
-- GET all favorites for specific song
-- GET all favorites for specific user
-- POST new favorite
-- DELETE single favorite
+<!-- - GET all favorites -->
+<!-- - GET all favorites for specific song -->
+<!-- - GET all favorites for specific user -->
+<!-- - POST new favorite -->
+<!-- - DELETE single favorite -->
 
 Comments
 - GET all comments
