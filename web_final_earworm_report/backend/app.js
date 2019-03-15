@@ -8,7 +8,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var genresRouter = require('./routes/genres');
 var songsRouter = require('./routes/songs');
-var favoritesRouter = require('./routes/favorites')
+var favoritesRouter = require('./routes/favorites');
+var commentsRouter = require('./routes/comments')
 var app = express();
 
 // view engine setup
@@ -25,7 +26,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/genres', genresRouter);
 app.use('/songs', songsRouter);
-app.use('/favorites', favoritesRouter)
+app.use('/favorites', favoritesRouter);
+app.use('/comments', commentsRouter)
 
 
 // catch 404 and forward to error handler

@@ -7,8 +7,8 @@ const getAllFavorites = (req, res, next) => {
     .then(data => {
       res.json({
         status: "success",
-        message: "Retrieved all users",
-        users: data
+        message: "Retrieved all favorites",
+        favorites: data
       });
     })
     .catch(err => {

@@ -34,8 +34,8 @@ Favorites
 <!-- - DELETE single favorite -->
 
 Comments
-- GET all comments
-- GET all comments for specific song
-- POST new comment
+<!-- - GET all comments -->
+<!-- - GET all comments for specific song -->
+<!-- - POST new comment -->
 - PATCH single comment
 - DELETE single comment
