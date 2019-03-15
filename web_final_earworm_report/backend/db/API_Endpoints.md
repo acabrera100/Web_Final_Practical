@@ -9,13 +9,14 @@ Users
 
 Genres
 <!-- - GET all genres -->
-- POST new genre
+<!-- - POST new genre -->
 
 Songs
-- You are welcome and encouraged (not required) to get the total number of favorites for each song in these queries. You are even more welcome to sort songs by popularity (number of favorites) in this query.
+- You are welcome and encouraged (not required) to get the total number of favorites for each song in these queries.
+- You are even more welcome to sort songs by popularity (number of favorites) in this query.
 
-- GET all songs
-- GET all songs for specific genre
+<!-- - GET all songs -->
+<!-- - GET all songs for specific genre -->
 - GET all songs posted by a specific user
 - GET one song
 - POST new song
