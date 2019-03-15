@@ -17,10 +17,12 @@ Songs
 
 <!-- - GET all songs -->
 <!-- - GET all songs for specific genre -->
-- GET all songs posted by a specific user
-- GET one song
-- POST new song
-- DELETE single song
+<!-- - GET all songs posted by a specific user -->
+<!-- - GET one song -->
+<!-- - POST new song -->
+
+(NOTES- not returning my new song after I created it)   
+<!-- - DELETE single song -->
 
 Favorites
 - GET all favorites

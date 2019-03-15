@@ -73,11 +73,14 @@ const getSingleSong = (req, res, next) => {
 };
 
 const createSong = (req, res, next) => {
-  db.none("INSERT INTO songs(username) VALUES(${username})", req.body)
+  db.none(
+    "INSERT INTO songs(title, artist, img_url, user_id, genre_id) VALUES ( ${title}, ${artist}, ${img_url}, ${user_id}, ${genre_id})",
+    req.body
+  )
     .then(() => {
       res.status(200).json({
         status: "success",
-        message: "New user has been created"
+        message: "New song has been posted"
       });
     })
     .catch(err => {
@@ -86,12 +89,12 @@ const createSong = (req, res, next) => {
 };
 
 const deleteSong = (req, res, next) => {
-  let userId = parseInt(req.params.id);
-  db.result("DELETE FROM songs WHERE id=$1", userId)
+  let songId = req.params.id;
+  db.result("DELETE FROM songs WHERE id=$1", songId)
     .then(() => {
       res.status(200).json({
         status: "success",
-        message: "The user has been removed from this site"
+        message: "The song has been removed"
       });
     })
     .catch(err => {
