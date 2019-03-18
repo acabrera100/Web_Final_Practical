@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class SongByPopularity extends Component {
   render(){
+    console.log(this.props.songs);
     return (
       <>
         <h2>By Popularity</h2>

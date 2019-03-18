@@ -2,7 +2,7 @@ const { db } = require("./index.js");
 
 const getAllSongs = (req, res, next) => {
   db.any(
-    "SELECT title,artist,img_url,COUNT(song_id)AS Likes FROM songs JOIN favorites ON favorites.song_id = songs.id GROUP BY title,artist,img_url ORDER BY likes DESC"
+    "SELECT title,artist,img_url,username, COUNT(song_id)AS Favorites FROM songs JOIN favorites ON favorites.song_id = songs.id JOIN users  ON songs.user_id = users.id GROUP BY title,artist,username,img_url"
   )
     .then(data => {
       res.json({
