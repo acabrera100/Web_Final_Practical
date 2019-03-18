@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 
 class SongByPopularity extends Component {
+  constructor(){
+    super()
+    this.state={
+
+    }
+  }
+  
   render(){
     console.log(this.props.songs);
     return (

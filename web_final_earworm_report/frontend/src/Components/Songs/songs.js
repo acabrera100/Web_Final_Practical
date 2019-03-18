@@ -1,35 +1,43 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 import SongByPopularity from "./songsByPopularity.js";
 import SongsByGenre from "./songsByGenre.js";
 import SingleSong from "./singleSong.js";
 
 class Songs extends Component {
-  constructor (){
-    super ()
+  constructor() {
+    super();
     this.state = {
-      songs:[]
-    }
+      songs: []
+    };
   }
 
-  componentDidMount (){
-    axios.get('/songs').then(res =>{
+  componentDidMount() {
+    axios.get("/songs").then(res => {
       return this.setState({
-        songs:res.data.songs
-      })
-    })
+        songs: res.data.songs
+      });
+    });
   }
 
   render() {
-    // console.log(this.state);
+    console.log(this.state);
+    let songsList = this.state.songs.map(song => {
+      return <li key={song.id}>{song.title}</li>;
+    });
     return (
       <Switch>
         <Route
           exact
           path="/songs"
           render={() => {
-            return <h1>Songs</h1>;
+            return (
+              <>
+                <h1> All Songs</h1>
+                <ul>{songsList}</ul>
+              </>
+            );
           }}
         />
         <Route
@@ -41,7 +49,7 @@ class Songs extends Component {
         <Route
           path="/songs/byGenre"
           render={() => {
-            return <SongsByGenre songs={this.state.songs}/>;
+            return <SongsByGenre songs={this.state.songs} />;
           }}
         />
         <Route
