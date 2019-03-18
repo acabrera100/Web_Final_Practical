@@ -1,8 +1,19 @@
 import React from "react";
+import { Route, Switch } from "react-router-dom";
+import SingleProfile from "./singleProfile.js";
 
 const Home = () => {
   return (
     <>
+      <Switch>
+        <Route
+          exact
+          path="/profile/:id"
+          render={() => {
+            return <SingleProfile />;
+          }}
+        />
+      </Switch>
       <h1> My Profile </h1>
       <ul>
         <li>
