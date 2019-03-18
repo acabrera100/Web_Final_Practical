@@ -94,9 +94,24 @@ const updateComment = (req, res, next) => {
       return next(err);
     });
 };
+
+const deleteSingleComment = (req, res, next) => {
+  let commentId = parseInt(req.params.id);
+  db.result("DELETE FROM comments WHERE id=$1", commentId)
+    .then(body => {
+      res.status(200).json({
+        status: "success",
+        message: " Removed Comment from Database"
+      });
+    })
+    .catch(err => {
+      return next(err);
+    });
+};
 module.exports = {
   getAllComments,
   getAllCommentsForSpecificSong,
   createComment,
-  updateComment
+  updateComment,
+  deleteSingleComment
 };
