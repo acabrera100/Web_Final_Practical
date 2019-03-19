@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
 // import SongsDisplay from './songsDisplay.js'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 class SongByPopularity extends Component {
   constructor(){
     super()
     this.state={
-
+      songsByPop:[]
     }
   }
 
+componentDidMount(){
+  axios.get("/songs/byPop").then(res => {
+    return this.setState({
+      songsByPop: res.data.songs
+    });
+  });
+}
   render(){
-  let songsList =  this.props.songs.map((song,i) => {
+  let songsList =  this.state.songsByPop.map((song,i) => {
       if (song.title.toLowerCase()) {
         return (
           <li key={i + 1}>

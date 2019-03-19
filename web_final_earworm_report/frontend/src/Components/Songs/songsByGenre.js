@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import SongDisplay from "./songsDisplay";
+// import SongDisplay from "./songsDisplay";
 
 class SongsByGenre extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class SongsByGenre extends Component {
   }
 
   handleSelect = e => {
-    console.log("ok something worked", e.target.value);
+    // console.log("ok something worked", e.target.value);
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -29,7 +29,7 @@ class SongsByGenre extends Component {
 
   handleFormSubmit = e => {
     e.preventDefault();
-    console.log("hello");
+    // console.log("hello");
     this.setState({
       formSubmitted: true
     });
@@ -60,7 +60,7 @@ class SongsByGenre extends Component {
   };
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     const {selectedGenre,formSubmitted} =this.state
     const { songs } = this.props;
     let songsFilter = songs;

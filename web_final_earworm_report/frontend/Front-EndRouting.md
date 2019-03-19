@@ -32,8 +32,8 @@ You should have the following routes on your frontend:
 
 <!-- - /songs/bygenre - AKA "By Genre." -->
   - At first, this route should look exactly like /songs, sorted by post date, and with each song including favorites, likes, and their accompanying functionalities.
-  - However, there should be a select input in the form instead of a text input. By default, this should be blank, displaying all songs. It should be populated with option tags representing each genre in the Genres table of your database.
-  -   When the user selects a specific genre and submits the form, the feed should update to only include songs from the genre that the user selected.
+  <!-- - However, there should be a select input in the form instead of a text input. By default, this should be blank, displaying all songs. It should be populated with option tags representing each genre in the Genres table of your database. -->
+  <!-- -   When the user selects a specific genre and submits the form, the feed should update to only include songs from the genre that the user selected. -->
 
 
 <!-- - /profile - AKA "My Profile."  -->
