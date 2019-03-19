@@ -6,10 +6,10 @@ class SongsDisplay extends Component {
     super()
   }
   render(){
-  let songsList =  this.props.songs.map(song => {
+  let songsList =  this.props.songs.map((song,i) => {
       if (song.title.toLowerCase()) {
         return (
-          <li key={song.com}>
+          <li key={i+1}>
             Title: {song.title}
             <br />
             Artist: {song.artist}
@@ -25,6 +25,7 @@ class SongsDisplay extends Component {
               <input type="text" />
               <input type="submit" />
             </form>
+            {song.comment_body}
           </li>
         );
       } else {
