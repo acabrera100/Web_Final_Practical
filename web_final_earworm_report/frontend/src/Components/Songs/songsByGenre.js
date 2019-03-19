@@ -29,6 +29,7 @@ class SongsByGenre extends Component {
 
   handleFormSubmit = e => {
     e.preventDefault();
+    console.log("hello");
     this.setState({
       formSubmitted: true
     });
@@ -46,7 +47,7 @@ class SongsByGenre extends Component {
     return (
       <>
         <form onSubmit={this.handleFormSubmit}>
-          <select onChange={this.handleSelect}>
+          <select name="selectedGenre"  onChange={this.handleSelect}>
             <option key="0" name="selectedGenre" value="">
               {" "}
             </option>
@@ -59,9 +60,9 @@ class SongsByGenre extends Component {
   };
 
   render() {
+    console.log(this.state);
     const {selectedGenre,formSubmitted} =this.state
     const { songs } = this.props;
-    console.log(this.state);
     let songsFilter = songs;
 
     if (formSubmitted && selectedGenre) {
