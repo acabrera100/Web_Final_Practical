@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Link, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import axios from "axios";
 import SongByPopularity from "./songsByPopularity.js";
 import SongsByGenre from "./songsByGenre.js";
@@ -28,29 +28,23 @@ class Songs extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    let songSearched = this.state.songs.find(song => {
-      return (
-        song.name
-          .toLowerCase()
-          .indexOf(this.state.formInputText.toLowerCase()) === 0
-      );
+    const filteredsongs = this.state.songs.filter(el => {
+      return el.title
+        .toLowerCase()
+        .includes(this.state.formInputText.toLowerCase());
     });
-    this.state.history.push(`/songs/${songSearched.id}/singleSong`);
+
+    this.setState({
+      songs: filteredsongs
+    });
   };
+
   render() {
     console.log(this.state);
 
     let songsList = this.state.songs.map(song => {
-      if (
-        song.title
-          .toLowerCase()
-          .indexOf(this.state.formInputText.toLowerCase()) === 0
-      ) {
-        return (
-          <li key={song.id}>
-            <Link to={"/songs/" + song.id}>{song.title}</Link>
-          </li>
-        );
+      if (song.title.toLowerCase()) {
+        return <li key={song.id}>{song.title}</li>;
       } else {
         return null;
       }
