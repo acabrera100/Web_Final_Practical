@@ -3,16 +3,16 @@ You should have the following routes on your frontend:
 
 <!-- - / - A homepage that reads "Earworm Report" in an h1 tag. -->
 
-- Also renders a navigation bar across the top of the page, visible on every subsequent route.
-- Navbar should have the following links: "Home," "All Songs," "By Popularity," "By Genre," and "My Profile".
+<!-- - Also renders a navigation bar across the top of the page, visible on every subsequent route. -->
+<!-- - Navbar should have the following links: "Home," "All Songs," "By Popularity," "By Genre," and "My Profile". -->
 
 
 <!-- - /songs - AKA "All Songs."   -->
-    - A page that renders all of the songs on the site, as well as offering search functionality by song title. Songs should, by default, be sorted how recently they were posted.
-  - Includes a form tag containing a text input and a submit button. Label - "Search By Title."
-  - When a user enters part or all of a song's title (not case sensitive) and clicks "Search" (submit), the list of songs should be filtered to only the songs with titles that correspond to what the user was searching for.
+    <!-- - A page that renders all of the songs on the site, as well as offering search functionality by song title. Songs should, by default, be sorted how recently they were posted. -->
+  <!-- - Includes a form tag containing a text input and a submit button. Label - "Search By Title." -->
+  <!-- - When a user enters part or all of a song's title (not case sensitive) and clicks "Search" (submit), the list of songs should be filtered to only the songs with titles that correspond to what the user was searching for. -->
   <!-- - Each song should include title, image (based on the img_url column in the Songs table), and total number of favorites. They should also include the user's username, -->
-  - which should be a link to that user's profile (/profile/:id).
+  <!-- - which should be a link to that user's profile (/profile/:id). -->
   - Each song should include a button, "Favorite," that allows the user to favorite a specific song.
   - When the user clicks to favorite a song, the button's text should change to "Unfavorite", and the button's functionality should change from sending a POST request to a DELETE.
   - Ensure that the song's total number of favorites always reflects the user's input.

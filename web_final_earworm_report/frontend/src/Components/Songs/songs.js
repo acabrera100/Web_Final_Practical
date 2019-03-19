@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Link, Switch } from "react-router-dom";
 import axios from "axios";
 import SongByPopularity from "./songsByPopularity.js";
 import SongsByGenre from "./songsByGenre.js";
@@ -44,7 +44,18 @@ class Songs extends Component {
 
     let songsList = this.state.songs.map(song => {
       if (song.title.toLowerCase()) {
-        return <li key={song.id}>{song.title}</li>;
+        return (
+          <li key={song.id}>
+            Title: {song.title}
+            <br />
+            Artist: {song.artist}
+            <br />
+            <img src={song.img_url} alt="song" />
+            <br />
+            Posted by:
+            <Link to={"/profile/" + song.id}>{song.username}</Link>
+          </li>
+        );
       } else {
         return null;
       }
