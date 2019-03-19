@@ -11,6 +11,7 @@ class Songs extends Component {
     super();
     this.state = {
       songs: [],
+      genres:[],
       comments:[],
       formInputText: "",
       toggle: "UnFavorite",
@@ -28,6 +29,11 @@ class Songs extends Component {
     axios.get("/comments").then(res => {
       return this.setState({
         comments: res.data.comments
+      });
+    });
+    axios.get("/genres").then(res => {
+      return this.setState({
+        genres: res.data.genres
       });
     });
   }
@@ -98,7 +104,7 @@ class Songs extends Component {
           <Route
             path="/songs/byGenre"
             render={() => {
-              return <SongsByGenre songs={this.state.songs} />;
+              return <SongsByGenre songs={this.state.songs} genres={this.state.genres} />;
             }}
           />
           <Route

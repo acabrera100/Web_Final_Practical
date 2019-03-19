@@ -1,12 +1,23 @@
 import React,{Component} from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 class SongsDisplay extends Component {
   constructor(props){
     super()
+    this.state={
+      songs:[]
+    }
+  }
+  componentDidMount() {
+    axios.get("/songs").then(res => {
+      return this.setState({
+        songs: res.data.songs
+      });
+    });
   }
   render(){
-  let songsList =  this.props.songs.map((song,i) => {
+  let songsList =  this.state.songs.map((song,i) => {
       if (song.title.toLowerCase()) {
         return (
           <li key={i+1}>

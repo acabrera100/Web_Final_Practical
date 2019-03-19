@@ -11,10 +11,10 @@ class SongByPopularity extends Component {
   }
 
   render(){
-  let songsList =  this.props.songs.map(song => {
+  let songsList =  this.props.songs.map((song,i) => {
       if (song.title.toLowerCase()) {
         return (
-          <li key={song.com}>
+          <li key={i + 1}>
             Title: {song.title}
             <br />
             Artist: {song.artist}
