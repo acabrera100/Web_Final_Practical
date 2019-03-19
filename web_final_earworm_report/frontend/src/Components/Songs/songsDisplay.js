@@ -1,15 +1,10 @@
-import React, { Component } from 'react';
-// import SongsDisplay from './songsDisplay.js'
-import { Link } from 'react-router-dom'
+import React,{Component} from "react";
+import { Link } from "react-router-dom";
 
-class SongByPopularity extends Component {
-  constructor(){
+class SongsDisplay extends Component {
+  constructor(props){
     super()
-    this.state={
-
-    }
   }
-
   render(){
   let songsList =  this.props.songs.map(song => {
       if (song.title.toLowerCase()) {
@@ -43,4 +38,4 @@ class SongByPopularity extends Component {
     )
   }
 }
-export default SongByPopularity;
+export default SongsDisplay;

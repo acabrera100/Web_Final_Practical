@@ -1,15 +1,17 @@
 import React, { Component } from "react";
-import { Route, Link, Switch } from "react-router-dom";
+import { Route,  Switch } from "react-router-dom";
 import axios from "axios";
 import SongByPopularity from "./songsByPopularity.js";
 import SongsByGenre from "./songsByGenre.js";
 import SingleSong from "./singleSong.js";
+import SongsDisplay from './songsDisplay.js'
 
 class Songs extends Component {
   constructor() {
     super();
     this.state = {
       songs: [],
+      comments:[],
       formInputText: "",
       toggle: "UnFavorite",
       visible: "false",
@@ -21,6 +23,11 @@ class Songs extends Component {
     axios.get("/songs").then(res => {
       return this.setState({
         songs: res.data.songs
+      });
+    });
+    axios.get("/comments").then(res => {
+      return this.setState({
+        comments: res.data.comments
       });
     });
   }
@@ -56,27 +63,7 @@ class Songs extends Component {
 
   render() {
     console.log(this.state);
-    let songsList = this.state.songs.map(song => {
-      if (song.title.toLowerCase()) {
-        return (
-          <li key={song.id}>
-            Title: {song.title}
-            <br />
-            Artist: {song.artist}
-            <br />
-            <img src={song.img_url} alt="song" />
-            <br />
-            Posted by:
-            <Link to={"/profile/" + song.id}>{song.username}</Link>
-            <br />
-            {song.favorites}
-            <button onClick={this.favorASong}>Favorite</button>
-          </li>
-        );
-      } else {
-        return null;
-      }
-    });
+
 
     return (
       <>
@@ -97,7 +84,7 @@ class Songs extends Component {
                     <input type="submit" value="Search by Title" />
                   </form>
                   <h1> All Songs</h1>
-                  <ul>{songsList}</ul>
+                  <ul> <SongsDisplay songs={this.state.songs}/> </ul>
                 </>
               );
             }}
