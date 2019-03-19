@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
+import SongDisplay from "./songsDisplay";
 
 class SongsByGenre extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       genres: [],
       selectedGenre: "",
@@ -18,7 +19,9 @@ class SongsByGenre extends Component {
       });
     });
   }
+
   handleSelect = e => {
+    console.log("ok something worked", e.target.value);
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -33,47 +36,56 @@ class SongsByGenre extends Component {
 
   populateSelectGenres = () => {
     let genreList = this.state.genres.map((genre, i) => {
-      return <option key={i}> {genre.genre_name}</option>;
+      return (
+        <option key={i + 1} name="selectedGenre" value={genre.genre_name}>
+          {" "}
+          {genre.genre_name}
+        </option>
+      );
     });
     return (
       <>
-        <form>
-          <select className="button" onClick={this.handleSelect}>
-            <option value=""> </option>
-
+        <form onSubmit={this.handleFormSubmit}>
+          <select onChange={this.handleSelect}>
+            <option key="0" name="selectedGenre" value="">
+              {" "}
+            </option>
             {genreList}
           </select>
-          <input type="submit" onSubmit={this.handleFormSubmit} />
+          <button type="submit">Sort byGenre</button>
         </form>
       </>
     );
   };
 
   render() {
+    const {selectedGenre,formSubmitted} =this.state
+    const { songs } = this.props;
     console.log(this.state);
+    let songsFilter = songs;
 
-    return <>{this.populateSelectGenres()}</>;
+    if (formSubmitted && selectedGenre) {
+      songsFilter = songs.filter(song => {
+        return song.genre_name === selectedGenre;
+      });
+    }
+
+    let songsList = songsFilter.map((song,i) => {
+      return <li key={i +1}>{song.title}</li>;
+    });
+    return (
+      <>
+        {this.populateSelectGenres()}
+        <ul>{songsList}</ul>
+      </>
+    );
   }
 }
 export default SongsByGenre;
 
-//
-//   let genreList = this.state.genres.map(genre => {
-//     return (
-//       <option
-//         key="genre.id"
-//         name="selectedGenre"
-//         value={this.state.genre_name}
-//       >
-//         {genre}
-//       </option>
-//     );
-//   });
-//   return (
-//     <>
-//       <form>
-//         <select>{genreList}</select>
-//       </form>
-//     </>
-//   );
+// if (this.state.formSubmitted && this.state.selectedGenre) {
+//   genreFilter ===
+//     this.props.songs.filter(song => {
+//       return song.genre === this.state.selectedGenre;
+//     });
 // }

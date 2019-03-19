@@ -98,7 +98,7 @@ class Songs extends Component {
           <Route
             path="/songs/byGenre"
             render={() => {
-              return <SongsByGenre  />;
+              return <SongsByGenre songs={this.state.songs} />;
             }}
           />
           <Route
