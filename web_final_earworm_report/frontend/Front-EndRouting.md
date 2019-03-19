@@ -25,7 +25,7 @@ You should have the following routes on your frontend:
 
 
 <!-- - /songs/bypop - AKA "By Popularity."  -->
-  - A list of all songs sorted by number of favorites. No search functionality required.
+  <!-- - A list of all songs sorted by number of favorites. No search functionality required. -->
   - Songs should include favorites, comments, and their accompanying functionalities - exactly as described in the /songs route above.
 
 
