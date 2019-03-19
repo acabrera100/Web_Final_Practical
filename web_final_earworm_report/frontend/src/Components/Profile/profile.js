@@ -1,3 +1,6 @@
+// Profile needs a lot of work. Missing all of it's 
+// functionality including the ability to add a new song.
+
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import SingleProfile from "./singleProfile.js";

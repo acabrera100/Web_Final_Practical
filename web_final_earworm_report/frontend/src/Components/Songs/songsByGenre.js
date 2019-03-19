@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import axios from "axios";
 // import SongDisplay from "./songsDisplay";
 
+//Not propery displaying songs.
+// Songs should be selected only on the submit, not on the
+// change. Your's only works properly for one selection. 
+
 class SongsByGenre extends Component {
   constructor(props) {
     super(props);

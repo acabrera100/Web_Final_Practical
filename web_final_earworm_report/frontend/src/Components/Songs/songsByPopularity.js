@@ -3,6 +3,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
+// BEWARE of duplicate code. I see A LOT of duplicate code.
+// We want to keep things DRY. Although you won't
+// be penalized for this today (get the functionality and styling first),
+// this could / would effect whether a company will bring you
+// in for an interview upon seeing the coding challenge.
+
+// But on your way, you're on track for Friday :-). 
+
 class SongByPopularity extends Component {
   constructor(){
     super()

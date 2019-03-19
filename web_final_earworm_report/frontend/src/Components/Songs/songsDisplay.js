@@ -1,3 +1,10 @@
+// Comments on a song don't work. Missing onSubmit and
+// preventDefault.
+// Was also unable to favorite / unfavorite songs.
+// Search was also not working.
+// Consider breaking up componenets more to have a singleSongDisplay.
+
+
 import React,{Component} from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios'
