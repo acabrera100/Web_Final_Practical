@@ -10,7 +10,10 @@ class Songs extends Component {
     super();
     this.state = {
       songs: [],
-      formInputText: ""
+      formInputText: "",
+      toggle: "UnFavorite",
+      visible: "false",
+      favored: false
     };
   }
 
@@ -39,9 +42,20 @@ class Songs extends Component {
     });
   };
 
+  // favorASong = () => {
+  //   if (this.state.favored === false) {
+  //     axios.post(`/favorites`).then(res => {
+  //       console.log(res);
+  //       console.log(res.data);
+  //     });
+  //     return this.state.favored === true;
+  //   } else {
+  //     return false;
+  //   }
+  // };
+
   render() {
     console.log(this.state);
-
     let songsList = this.state.songs.map(song => {
       if (song.title.toLowerCase()) {
         return (
@@ -54,12 +68,16 @@ class Songs extends Component {
             <br />
             Posted by:
             <Link to={"/profile/" + song.id}>{song.username}</Link>
+            <br />
+            {song.favorites}
+            <button onClick={this.favorASong}>Favorite</button>
           </li>
         );
       } else {
         return null;
       }
     });
+
     return (
       <>
         <Switch>
