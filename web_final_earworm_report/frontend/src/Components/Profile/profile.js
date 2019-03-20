@@ -18,6 +18,11 @@ class Profile extends Component {
         users: res.data.users
       });
     });
+    axios.get("/songs/byUser/1").then(res => {
+      return this.setState({
+        sampleStateSongsByUser: res.data
+      });
+    });
   }
   transform = () => {
     let toggleButton =
@@ -40,9 +45,9 @@ class Profile extends Component {
           </button>
           <h4>Submit New Song </h4>
           <form>
-          <input type="text"placeholder="Song Title"/>
-          {" "}
-          <input type="text"placeholder="Img_Url"/>
+            <input type="text" placeholder="Song Title" />{" "}
+            <input type="text" placeholder="Img_Url" /> {" "}
+            <input type ="submit" />
           </form>
         </>
       );

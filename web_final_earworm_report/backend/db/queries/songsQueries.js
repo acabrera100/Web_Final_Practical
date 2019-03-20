@@ -38,7 +38,7 @@ const getAllSongsbyPopularity = (req, res, next) => {
 const getAllSongsForSpecificGenre = (req, res, next) => {
   let genreName = req.params.id;
   db.any(
-    "SELECT title,artist,img_url,COUNT(song_id)AS Likes FROM songs JOIN favorites ON favorites.song_id = songs.id JOIN genres ON genres.id = songs.genre_id WHERE genre_name = $1 GROUP BY title,artist,img_url ORDER BY likes DESC",
+    "SELECT title,artist,img_url,COUNT(song_id)AS Likes FROM songs JOIN favorites ON favorites.song_id = songs.id JOIN genres ON genres.id = songs.genre_id WHERE genres.id = $1 GROUP BY title,artist,img_url ORDER BY likes DESC",
     [genreName]
   )
     .then(data => {
@@ -57,7 +57,7 @@ const getAllSongsForSpecificGenre = (req, res, next) => {
 const getAllSongsBySpecificUser = (req, res, next) => {
   let userName = req.params.id;
   db.any(
-    "SELECT title,artist,img_url,genre_name,COUNT(song_id)AS Likes FROM songs JOIN favorites ON favorites.song_id = songs.id JOIN genres  ON genres.id = songs.genre_id JOIN users ON users.id = songs.user_id WHERE username = $1 GROUP BY title,artist,genre_name,img_url ORDER BY likes DESC",
+    "SELECT title,artist,img_url,genre_name,COUNT(song_id)AS Likes FROM songs JOIN favorites ON favorites.song_id = songs.id JOIN genres  ON genres.id = songs.genre_id JOIN users ON users.id = songs.user_id WHERE users.id = $1 GROUP BY title,artist,genre_name,img_url ORDER BY likes DESC",
     [userName]
   )
     .then(data => {
