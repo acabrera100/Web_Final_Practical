@@ -54,6 +54,23 @@ class Profile extends Component {
       </>
     );
   };
+commentsByUser = () => {
+    let commentsPostedByUser = this.state.sampleStateCommentsByUser.map((comment, i) => {
+      return (
+        <li key={i + 1}>
+         {comment.comment_body}
+        </li>
+      );
+    });
+    return (
+      <>
+      <ul>
+      {commentsPostedByUser}
+      </ul>
+      </>
+    );
+  };
+
   transform = () => {
     let toggleButton =
       this.state.buttonRender === "Posted" ? "Favorites" : "Posted";
@@ -79,6 +96,7 @@ class Profile extends Component {
             <input type="text" placeholder="Img_Url" /> <input type="submit" />
           </form>
           {this.songsByUser()}
+          {this.commentsByUser()}
         </>
       );
     } else {

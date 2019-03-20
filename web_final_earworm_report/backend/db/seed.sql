@@ -74,7 +74,6 @@ VALUES
 ('This song opened me up to how silly and awesome jazzcan be',1,4),
 ('Oldie but goodie, essentials of salsa',1,1),
 ('Tyler the Creator really brings the song together',5,9),
-('Oldie but goodie, essentials of salsa',1,1),
 ('man you feel like you are there sometimes',6,10),
 ('looking for a good time or a pick me up. Play this when you gotta clean the house',8,13),
 ('get hype East Coast style',7,15),
