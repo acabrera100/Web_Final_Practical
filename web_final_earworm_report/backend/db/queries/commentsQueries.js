@@ -17,6 +17,25 @@ const getAllComments = (req, res, next) => {
     });
 };
 
+const getAllCommentsPostedByUser = (req, res, next) => {
+  let userId = req.params.id;
+  db.any(
+    "SELECT DISTINCT comments.id,username,comment_body FROM songs  JOIN favorites ON favorites.song_id = songs.id JOIN users ON users.id = songs.user_id JOIN comments ON comments.user_id = users.id WHERE users.id = $1 GROUP BY comments.id,username,comment_body",
+    [userId]
+  )
+    .then(data => {
+      res.json({
+        status: "success",
+        message: "Retrieved all comments",
+        comments: data
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      return next(err);
+    });
+};
+
 const getAllCommentsForSpecificSong = (req, res, next) => {
   let songName = req.params.id;
   db.any(
@@ -38,7 +57,7 @@ const getAllCommentsForSpecificSong = (req, res, next) => {
 
 const createComment = (req, res, next) => {
   db.none(
-    "INSERT INTO comments(comment_body,user_id,song_id) VALUES ( ${comment_body}, ${user_id}, ${song_id})",
+    "INSERT INTO comments(comment_body,user_id,song_id) VALUES ( ${comment_body}, ${user_id}, ${comments.song_id})",
     req.body
   )
     .then(() => {
@@ -110,6 +129,7 @@ const deleteSingleComment = (req, res, next) => {
 };
 module.exports = {
   getAllComments,
+  getAllCommentsPostedByUser,
   getAllCommentsForSpecificSong,
   createComment,
   updateComment,

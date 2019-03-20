@@ -2,14 +2,19 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Route, Switch } from "react-router-dom";
 import SingleProfile from "./singleProfile.js";
+import "../../CSS/Profile.css"
 
 class Profile extends Component {
   constructor() {
     super();
     this.state = {
       users: [],
+      sampleStateSongsByUser:[],
+      sampleStateCommentsByUser:[],
       loggedInUser: "felipe_queens",
-      buttonRender: "Posted"
+      buttonRender: "Posted",
+      songInputText: "",
+      img_urlInputText: ""
     };
   }
   componentDidMount() {
@@ -20,10 +25,35 @@ class Profile extends Component {
     });
     axios.get("/songs/byUser/1").then(res => {
       return this.setState({
-        sampleStateSongsByUser: res.data
+        sampleStateSongsByUser: res.data.songs
+      });
+    });
+    axios.get("/comments/byUser/1").then(res => {
+      return this.setState({
+        sampleStateCommentsByUser: res.data.comments
       });
     });
   }
+
+  songsByUser = () => {
+    let songsPostedByUser = this.state.sampleStateSongsByUser.map((song, i) => {
+      return (
+        <li key={i + 1}>
+        <img src={song.img_url} alt="song" />
+          Song Title: {song.title}
+          <br/>
+          {song.likes} {"  "} Favorites
+        </li>
+      );
+    });
+    return (
+      <>
+      <ul>
+      {songsPostedByUser}
+      </ul>
+      </>
+    );
+  };
   transform = () => {
     let toggleButton =
       this.state.buttonRender === "Posted" ? "Favorites" : "Posted";
@@ -46,9 +76,9 @@ class Profile extends Component {
           <h4>Submit New Song </h4>
           <form>
             <input type="text" placeholder="Song Title" />{" "}
-            <input type="text" placeholder="Img_Url" /> {" "}
-            <input type ="submit" />
+            <input type="text" placeholder="Img_Url" /> <input type="submit" />
           </form>
+          {this.songsByUser()}
         </>
       );
     } else {
