@@ -6,7 +6,10 @@ class SongsDisplay extends Component {
   constructor(props){
     super()
     this.state={
-      songs:[]
+      sampleUser:1,
+      songs:[],
+      user_id:'',
+      song_id:'',
     }
   }
   componentDidMount() {
@@ -18,12 +21,15 @@ class SongsDisplay extends Component {
   }
   favorASong = () => {
     console.log("you favoored something here");
-      axios.post(`/favorites`).then(res => {
+      axios.post(`/favorites`,{
+        user_id:this.state.sampleUser,
+        song_id:1
+      }).then(res => {
         console.log(res);
         console.log(res.data);
       });
     }
-  
+
   render(){
   let songsList =  this.state.songs.map((song,i) => {
       if (song.title.toLowerCase()) {
