@@ -10,7 +10,8 @@ class SongsDisplay extends Component {
       songs: [],
       user_id: "",
       song_id: "",
-      liked:false
+      liked: false,
+      toggle: "Favorite"
     };
   }
   componentDidMount() {
@@ -21,12 +22,18 @@ class SongsDisplay extends Component {
     });
   }
 
-  favoriteASong(item, e) {
+  favoriteASong = (item, e) => {
+    let changeButtonPlaceholder =
+      this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
+    this.setState({
+      toggle: changeButtonPlaceholder
+    });
+    e.preventDefault();
     console.log(item);
-    if (!this.state.liked){
+    if (!this.state.liked) {
       this.setState({
-        liked : !this.state.liked
-      })
+        liked: true
+      });
       axios
         .post(`/favorites`, {
           user_id: this.state.sampleUser,
@@ -39,15 +46,19 @@ class SongsDisplay extends Component {
     } else {
       this.setState({
         liked: false
-      })
-      axios
-      .delete('/favorites/{item.id}')
-
+      });
+      axios.delete(`/favorites/${item.id}`).then(res => {
+        console.log(res.data);
+      });
     }
-
-  }
-
-
+  };
+  toggleFavoriteButton = () => {
+    let changeButtonPlaceholder =
+      this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
+    this.setState({
+      toggle: changeButtonPlaceholder
+    });
+  };
   render() {
     let songsList = this.state.songs.map((song, i) => {
       let boundSongClick = this.favoriteASong.bind(this, song);
@@ -64,7 +75,7 @@ class SongsDisplay extends Component {
             <Link to={"/profile/" + song.id}>{song.username}</Link>
             <br />
             {song.favorites}
-            <button onClick={boundSongClick}>Favorite</button>
+            <button onClick={boundSongClick}>{this.state.toggle}</button>
             <form>
               <input type="text" />
               <input type="submit" />
