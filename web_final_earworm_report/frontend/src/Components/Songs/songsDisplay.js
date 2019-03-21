@@ -16,6 +16,14 @@ class SongsDisplay extends Component {
       });
     });
   }
+  favorASong = () => {
+    console.log("you favoored something here");
+      axios.post(`/favorites`).then(res => {
+        console.log(res);
+        console.log(res.data);
+      });
+    }
+  
   render(){
   let songsList =  this.state.songs.map((song,i) => {
       if (song.title.toLowerCase()) {
