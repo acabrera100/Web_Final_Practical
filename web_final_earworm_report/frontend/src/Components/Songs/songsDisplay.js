@@ -1,17 +1,17 @@
-import React,{Component} from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 
 class SongsDisplay extends Component {
-  constructor(props){
-    super()
-    this.state={
-      sampleUser:1,
-      songs:[],
-      user_id:'',
-      song_id:''
-    }
-    // this.handleCheck = this.handleCheck.bind(this)
+  constructor(props) {
+    super();
+    this.state = {
+      sampleUser: 1,
+      songs: [],
+      user_id: "",
+      song_id: "",
+      liked:false
+    };
   }
   componentDidMount() {
     axios.get("/songs").then(res => {
@@ -21,38 +21,39 @@ class SongsDisplay extends Component {
     });
   }
 
-//   handleClick = (e) => {
-//   this.setState({
-//     clickedSubmit: e.target.id },() => {
-//     console.log(this.state.clickedSubmit)
-//   });
-// }
-// handleCheck(e) {
-//        alert(e.target.id);
-//    }
-// handleClick = (data) => {
-//     console.log(data);
-// }
-onSongClick(item, e) {
-  console.log(item);
-}
-  favorASong = () => {
-    console.log("you favoored something here");
-      axios.post(`/favorites`,{
-        user_id:this.state.sampleUser,
-        song_id:1
-      }).then(res => {
-        console.log(res);
-        console.log(res.data);
-      });
+  favoriteASong(item, e) {
+    console.log(item);
+    if (!this.state.liked){
+      this.setState({
+        liked : !this.state.liked
+      })
+      axios
+        .post(`/favorites`, {
+          user_id: this.state.sampleUser,
+          song_id: item.id
+        })
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+        });
+    } else {
+      this.setState({
+        liked: false
+      })
+      axios
+      .delete('/favorites/{item.id}')
+
     }
 
-  render(){
-  let songsList =  this.state.songs.map((song,i) => {
-    let boundSongClick = this.onSongClick.bind(this, song)
+  }
+
+
+  render() {
+    let songsList = this.state.songs.map((song, i) => {
+      let boundSongClick = this.favoriteASong.bind(this, song);
       if (song.title.toLowerCase()) {
         return (
-          <li key={i+1} id={i+1} onClick={boundSongClick}>
+          <li key={i + 1} id={i + 1}>
             Title: {song.title}
             <br />
             Artist: {song.artist}
@@ -63,7 +64,7 @@ onSongClick(item, e) {
             <Link to={"/profile/" + song.id}>{song.username}</Link>
             <br />
             {song.favorites}
-            <button onClick={this.handleClick}>Favorite</button>
+            <button onClick={boundSongClick}>Favorite</button>
             <form>
               <input type="text" />
               <input type="submit" />
@@ -75,11 +76,7 @@ onSongClick(item, e) {
         return null;
       }
     });
-    return(
-      <>
-      {songsList}
-      </>
-    )
+    return <>{songsList}</>;
   }
 }
 export default SongsDisplay;
