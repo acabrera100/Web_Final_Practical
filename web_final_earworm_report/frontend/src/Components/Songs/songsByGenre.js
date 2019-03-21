@@ -21,13 +21,16 @@ class SongsByGenre extends Component {
   }
 
   handleSelect = e => {
+  // debugger
     // console.log("ok something worked", e.target.value);
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+      formSubmitted:false
     });
   };
 
   handleFormSubmit = e => {
+    // debugger
     e.preventDefault();
     // console.log("hello");
     this.setState({
