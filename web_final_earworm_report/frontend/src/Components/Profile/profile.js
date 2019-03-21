@@ -39,6 +39,7 @@ class Profile extends Component {
     let songsPostedByUser = this.state.sampleStateSongsByUser.map((song, i) => {
       return (
         <li key={i + 1}>
+        Id:{song.id}
         <img src={song.img_url} alt="song" />
           Song Title: {song.title}
           <br/>
