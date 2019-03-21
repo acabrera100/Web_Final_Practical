@@ -9,8 +9,9 @@ class SongsDisplay extends Component {
       sampleUser:1,
       songs:[],
       user_id:'',
-      song_id:'',
+      song_id:''
     }
+    // this.handleCheck = this.handleCheck.bind(this)
   }
   componentDidMount() {
     axios.get("/songs").then(res => {
@@ -19,6 +20,22 @@ class SongsDisplay extends Component {
       });
     });
   }
+
+//   handleClick = (e) => {
+//   this.setState({
+//     clickedSubmit: e.target.id },() => {
+//     console.log(this.state.clickedSubmit)
+//   });
+// }
+// handleCheck(e) {
+//        alert(e.target.id);
+//    }
+// handleClick = (data) => {
+//     console.log(data);
+// }
+onSongClick(item, e) {
+  console.log(item);
+}
   favorASong = () => {
     console.log("you favoored something here");
       axios.post(`/favorites`,{
@@ -32,9 +49,10 @@ class SongsDisplay extends Component {
 
   render(){
   let songsList =  this.state.songs.map((song,i) => {
+    let boundSongClick = this.onSongClick.bind(this, song)
       if (song.title.toLowerCase()) {
         return (
-          <li key={i+1}>
+          <li key={i+1} id={i+1} onClick={boundSongClick}>
             Title: {song.title}
             <br />
             Artist: {song.artist}
@@ -45,7 +63,7 @@ class SongsDisplay extends Component {
             <Link to={"/profile/" + song.id}>{song.username}</Link>
             <br />
             {song.favorites}
-            <button onClick={this.favorASong}>Favorite</button>
+            <button onClick={this.handleClick}>Favorite</button>
             <form>
               <input type="text" />
               <input type="submit" />
