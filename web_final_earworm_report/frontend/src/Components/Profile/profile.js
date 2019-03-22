@@ -86,21 +86,26 @@ class Profile extends Component {
           <h1 className="loggedInUser"> {this.state.loggedInUser} </h1>
           <div className="grid-container">
             <div className="posts">
-              <button onClick={this.transform} name="Posted">
+              <button className="buttons" onClick={this.transform} name="Posted">
                 Posted
               </button>
             </div>
             <div className="favorites">
-              <button onClick={this.transform} name="Favorites">
+              <button className="buttons" onClick={this.transform} name="Favorites">
                 Favorites
               </button>
             </div>
           </div>
-          <h4>Submit New Song </h4>
+          <div className='grid-container2'>
+          <div className='htag'><h4>Submit New Song </h4></div>
+          <div classname='submit-form'>
           <form>
-            <input type="text" placeholder="Song Title" />{" "}
-            <input type="text" placeholder="Img_Url" /> <input type="submit" />
+            <input className='input-submit'type="text" placeholder="Song Title" />{" "}
+            <input  className='input-submit'type="text" placeholder="Img_Url" />
+            <button className='submitbtn'type="submit">Submit</button>
           </form>
+          </div>
+          </div >
           {this.songsByUser()}
         </div>
       );

@@ -27,17 +27,51 @@ img {
 }
 
 .grid-container {
-  background-color: red;
+
+  /* background-color: red; */
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   grid-template-areas: "posts favorites";
+
 }
 
 .posts {
+  display: flex;
+  justify-content: center;
   grid-area: posts;
+}
+.buttons{
+  height: 30px;
+  width: 150px;
+
 }
 
 .favorites {
+  display: flex;
+  justify-content: center;
   grid-area: favorites;
 }
+.grid-container2 {
+  /* background-color: red; */
+  margin-bottom: 10px;
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: "h4" "form";
+}
+.input-submit{
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 30px;
+  width: 240px;
+}
+.submitbtn{
+  height: 30px;
+  width: 120px;
+  border-radius: 30px
+}
+.submit-form { grid-area: form; }
+
+.htag { grid-area: h4; }
