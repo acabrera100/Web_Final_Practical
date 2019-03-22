@@ -17,11 +17,27 @@
   border-bottom-style: dotted;
   border-left-style: solid;
 }
-.loggedInUser{
-font-size: 25px
+.loggedInUser {
+  font-size: 25px;
 }
 
-img{
-  width:100px;
-  height:100px
+img {
+  width: 100px;
+  height: 100px;
+}
+
+.grid-container {
+  background-color: red;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "posts favorites";
+}
+
+.posts {
+  grid-area: posts;
+}
+
+.favorites {
+  grid-area: favorites;
 }

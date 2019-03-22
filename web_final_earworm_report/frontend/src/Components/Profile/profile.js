@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Route, Switch } from "react-router-dom";
 import SingleProfile from "./singleProfile.js";
-import "../../CSS/Profile.css"
+import "../../CSS/Profile.css";
 
 class Profile extends Component {
   constructor() {
     super();
     this.state = {
       users: [],
-      sampleStateSongsByUser:[],
-      sampleStateCommentsByUser:[],
+      sampleStateSongsByUser: [],
+      sampleStateCommentsByUser: [],
       loggedInUser: "felipe_queens",
       buttonRender: "Posted",
       songInputText: "",
@@ -39,35 +39,29 @@ class Profile extends Component {
     let songsPostedByUser = this.state.sampleStateSongsByUser.map((song, i) => {
       return (
         <li key={i + 1}>
-        Id:{song.id}
-        <img src={song.img_url} alt="song" />
+          Id:{song.id}
+          <img src={song.img_url} alt="song" />
           Song Title: {song.title}
-          <br/>
+          <br />
           {song.likes} {"  "} Favorites
         </li>
       );
     });
     return (
       <>
-      <ul>
-      {songsPostedByUser}
-      </ul>
+        <ul>{songsPostedByUser}</ul>
       </>
     );
   };
-commentsByUser = () => {
-    let commentsPostedByUser = this.state.sampleStateCommentsByUser.map((comment, i) => {
-      return (
-        <li key={i + 1}>
-         {comment.comment_body}
-        </li>
-      );
-    });
+  commentsByUser = () => {
+    let commentsPostedByUser = this.state.sampleStateCommentsByUser.map(
+      (comment, i) => {
+        return <li key={i + 1}>{comment.comment_body}</li>;
+      }
+    );
     return (
       <>
-      <ul>
-      {commentsPostedByUser}
-      </ul>
+        <ul>{commentsPostedByUser}</ul>
       </>
     );
   };
@@ -84,13 +78,20 @@ commentsByUser = () => {
   populateSelectButtonsProfile = () => {
     if (this.state.buttonRender === "Posted") {
       return (
-        <div className='profile-container'>
-          <button onClick={this.transform} name="Posted">
-            Posted
-          </button>{" "}
-          <button onClick={this.transform} name="Favorites">
-            Favorites
-          </button>
+        <div className="profile-container">
+          <h1 className="loggedInUser"> {this.state.loggedInUser} </h1>
+          <div className="grid-container">
+            <div className="posts">
+              <button onClick={this.transform} name="Posted">
+                Posted
+              </button>
+            </div>
+            <div className="favorites">
+              <button onClick={this.transform} name="Favorites">
+                Favorites
+              </button>
+            </div>
+          </div>
           <h4>Submit New Song </h4>
           <form>
             <input type="text" placeholder="Song Title" />{" "}
@@ -102,7 +103,8 @@ commentsByUser = () => {
       );
     } else {
       return (
-        <div className='profile-container'>
+        <div className="profile-container">
+          <h1 className="loggedInUser"> {this.state.loggedInUser} </h1>
           <button onClick={this.transform} name="Posted">
             Posted
           </button>{" "}
@@ -118,7 +120,7 @@ commentsByUser = () => {
   render() {
     console.log(this.state);
     return (
-      <div className='profileBody'>
+      <div className="profileBody">
         <Switch>
           <Route
             exact
@@ -128,7 +130,6 @@ commentsByUser = () => {
             }}
           />
         </Switch>
-        <h1 className='loggedInUser'> {this.state.loggedInUser} </h1>
         {this.populateSelectButtonsProfile()}
       </div>
     );
