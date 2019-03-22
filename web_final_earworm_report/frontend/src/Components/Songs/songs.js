@@ -61,20 +61,23 @@ class Songs extends Component {
               return (
                 <div className='AllSongsBody'>
                 <div className='container'>
+                <div className='searchbyTitle'>
+                <h1 className='h1'> Search by Title</h1>
                   <form onSubmit={this.handleSubmit}>
                     <input
+                      className='search-button'
                       type="text"
-                      placeholder="Search"
                       value={this.state.formInputText}
                       onChange={this.handleChange}
                     />
-                    <input type="submit" value="Search by Title" />
+                    <input type="submit" value="Search" />
                   </form>
-                  <h1> All Songs</h1>
+                  </div>
                   <ul>
                     {" "}
                     <SongsDisplay songs={this.state.songs} />{" "}
                   </ul>
+
                 </div>
                 </div>
               );

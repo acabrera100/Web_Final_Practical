@@ -1,18 +1,36 @@
-.AllSongsBody{
+.AllSongsBody {
   display: flex;
   justify-content: center;
   padding-top: 15px;
   min-height: 100vh;
-
 }
 
-.container{
+.container {
   background-color: #621389;
   border: 5px black;
   border-top-style: dotted;
- border-right-style: solid;
- border-bottom-style: dotted;
- border-left-style: solid;
+  border-right-style: solid;
+  border-bottom-style: dotted;
+  border-left-style: solid;
   width: 70%;
-  color:white;
+  color: white;
+}
+
+.searchbyTitle {
+  display: grid;
+  grid-template-rows: 55px 55px;
+  /* background-color: red; */
+  padding-bottom: 50px;
+  justify-content: center;
+  align-content: center;
+}
+.h1 {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 35px;
+}
+.search-button {
+  margin-top: 10px;
+  margin-right: 20px;
+  width: 250px;
 }

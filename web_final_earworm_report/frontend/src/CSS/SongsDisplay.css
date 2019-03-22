@@ -1,9 +1,4 @@
-.AllSongsBody {
-  display: flex;
-  justify-content: center;
-  padding-top: 15px;
-  min-height: 100vh;
-}
+
 .li-box {
   display: flex;
   justify-content: center;
@@ -17,7 +12,7 @@
   color: black;
   display: grid;
   grid-template-columns: 20% 80%;
-  grid-template-rows: 60% 40% ;
+  grid-template-rows: 60% 40%;
 }
 
 .thumbnail {
@@ -33,15 +28,21 @@
   height: 50px;
   font-size: 25px;
 }
-.box-2one {
-  padding-left: 300px;
+.box-2:mybutton {
+  padding-right: 90px;
+}
+.favorites {
+  display: flex;
+  justify-content: flex-end;
 }
 .myButton {
+  height: 35px;
+  width: 80px;
   background-color: #00f281;
-  -moz-border-radius: 42px;
-  -webkit-border-radius: 42px;
+  /* -moz-border-radius: 42px;
+  -webkit-border-radius: 42px; */
   border-radius: 42px;
-  display: inline-block;
+  /* display: inline-block; */
   cursor: pointer;
   color: #ffffff;
   font-family: Arial;
@@ -61,7 +62,7 @@
   font-size: 15px;
 }
 
-.box-4{
+.box-4 {
   display: flex;
   justify-content: center;
   border: 2px black;
@@ -70,16 +71,24 @@
   width: 620px;
   position: relative;
   bottom: 37px;
-  left: 24px
+  left: 24px;
 }
-.box-6{
+.box-6 {
   display: flex;
   justify-content: center;
-  border: 2px black;
-  border-style: solid;
   height: 50px;
-  width: 600px;
+  width: 500px;
   position: relative;
   bottom: 43px;
-  left: 210px
+  left: 330px;
+}
+
+.inputComment {
+  width: 300px;
+  height: 15px;
+  margin-right: 20px;
+}
+.submit-button {
+  cursor: pointer;
+  border-radius: 42px;
 }

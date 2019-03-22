@@ -92,15 +92,14 @@ class SongsDisplay extends Component {
 
       if (song.title.toLowerCase()) {
         return (
-          <div className="li-box">
+          <div className="li-box" key={i+1}>
             <li key={i + 1} id={i + 1} className="songBox">
               <div className="box-1">
-                <img src={song.img_url} alt="s" className="thumbnail" />
+                <img src={song.img_url} alt="thumbnail" className="thumbnail" />
               </div>
               <div className="box-2">
-
                 <div>{song.title}</div>
-                <div>Favorites:{song.favorites}</div>
+                <div className="favorites">Favorites:{song.favorites}</div>
                 <button onClick={boundSongClick} className="myButton">
                   {this.state.toggle}
                 </button>
@@ -113,15 +112,19 @@ class SongsDisplay extends Component {
               <div className="box-6">
                 <form onSubmit={boundAddComment}>
                   <input
+                    className="inputComment"
                     key={song.key}
                     id={i + 1}
                     type="text"
                     name="inputTextAddComment"
                     value={this.state.inputTextAddComment}
-                    placeholder={"Add a Comment"}
                     onChange={boundItemClick}
                   />
-                  <input type="submit" value="Submit" />
+                  <input
+                    className="submit-button"
+                    type="submit"
+                    value="Add Comment"
+                  />
                 </form>
               </div>
             </li>
