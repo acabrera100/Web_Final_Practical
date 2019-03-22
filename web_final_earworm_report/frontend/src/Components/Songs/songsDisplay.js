@@ -13,7 +13,7 @@ class SongsDisplay extends Component {
       song_id: "",
       liked: false,
       toggle: "Favorite",
-      inputTextAddComment: ""
+      inputTextAddComment:''
     };
   }
   componentDidMount() {
@@ -28,13 +28,15 @@ class SongsDisplay extends Component {
     let changeButtonPlaceholder =
       this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
     this.setState({
-      toggle: changeButtonPlaceholder
+      toggle: changeButtonPlaceholder,
+
     });
     e.preventDefault();
     console.log(song);
     if (!this.state.liked) {
       this.setState({
-        liked: true
+        liked: true,
+        likedValue:0
       });
       axios
         .post(`/favorites`, {
@@ -83,12 +85,19 @@ class SongsDisplay extends Component {
         console.log(res.data);
       });
   };
-
+// renderSongs=()=>{
+//   create an array of objects where i extrapulate the comments from each song, and then use this variable
+// let commentArray = this.props.songs.map(comment)=>{
+//   song.id === comments.song.id
+// }
+// return <li>commentArray</li>
+// }
   render() {
     let songsList = this.props.songs.map((song, i) => {
       let boundSongClick = this.favoriteASong.bind(this, song);
       let boundAddComment = this.handleAddComment.bind(this, song);
       let boundItemClick = this.onSongClick.bind(this, song);
+      console.log(this.state.comment_body);
 
       if (song.title.toLowerCase()) {
         return (
@@ -138,3 +147,9 @@ class SongsDisplay extends Component {
   }
 }
 export default SongsDisplay;
+// \ine 118
+// {this.renderSongs()}
+
+//
+// if favorite is true set it to decrease in value by 1.
+// This is to show on the front end

@@ -9,8 +9,8 @@ class Profile extends Component {
     super();
     this.state = {
       users: [],
-      sampleStateSongsByUser: [],
-      sampleStateCommentsByUser: [],
+      songsByUser: [],
+      commentsByUser: [],
       loggedInUser: "felipe_queens",
       buttonRender: "Posted",
       songInputText: "",
@@ -26,18 +26,32 @@ class Profile extends Component {
     });
     axios.get("/songs/byUser/1").then(res => {
       return this.setState({
-        sampleStateSongsByUser: res.data.songs
+        songsByUser: res.data.songs
       });
     });
     axios.get("/comments/byUser/1").then(res => {
       return this.setState({
-        sampleStateCommentsByUser: res.data.comments
+        commentsByUser: res.data.comments
       });
     });
   }
 
+  commentsByUser = () => {
+    if (this.state.songsByUser.id === this.commentsByUser.songid) {
+      let commentsPostedByUser = this.state.commentsByUser.map((comment, i) => {
+        return <li key={i + 1}>{comment.comment_body}</li>;
+      });
+      return (
+        <>
+          <ul>{commentsPostedByUser}</ul>
+        </>
+      );
+    } else {
+      return <h4> hello</h4>;
+    }
+  };
   songsByUser = () => {
-    let songsPostedByUser = this.state.sampleStateSongsByUser.map((song, i) => {
+    let songsPostedByUser = this.state.songsByUser.map((song, i) => {
       return (
         <li key={i + 1}>
           Id:{song.id}
@@ -45,24 +59,13 @@ class Profile extends Component {
           Song Title: {song.title}
           <br />
           {song.likes} {"  "} Favorites
+          {this.commentsByUser()}
         </li>
       );
     });
     return (
       <>
         <ul>{songsPostedByUser}</ul>
-      </>
-    );
-  };
-  commentsByUser = () => {
-    let commentsPostedByUser = this.state.sampleStateCommentsByUser.map(
-      (comment, i) => {
-        return <li key={i + 1}>{comment.comment_body}</li>;
-      }
-    );
-    return (
-      <>
-        <ul>{commentsPostedByUser}</ul>
       </>
     );
   };
@@ -99,7 +102,6 @@ class Profile extends Component {
             <input type="text" placeholder="Img_Url" /> <input type="submit" />
           </form>
           {this.songsByUser()}
-          {this.commentsByUser()}
         </div>
       );
     } else {

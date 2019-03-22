@@ -57,7 +57,7 @@ const getAllSongsForSpecificGenre = (req, res, next) => {
 const getAllSongsBySpecificUser = (req, res, next) => {
   let userName = parseInt(req.params.id);
   db.any(
-    "SELECT title,artist,img_url,genre_name,COUNT(song_id)AS Likes FROM songs JOIN favorites ON favorites.song_id = songs.id JOIN genres  ON genres.id = songs.genre_id JOIN users ON users.id = songs.user_id WHERE users.id = $1 GROUP BY title,artist,genre_name,img_url ORDER BY likes DESC",
+    "SELECT songs.id,title,artist,img_url,genre_name,COUNT(song_id)AS Likes FROM songs JOIN favorites ON favorites.song_id = songs.id JOIN genres  ON genres.id = songs.genre_id JOIN users ON users.id = songs.user_id WHERE users.id = $1 GROUP BY songs.id,title,artist,genre_name,img_url ORDER BY likes DESC",
     [userName]
   )
     .then(data => {
