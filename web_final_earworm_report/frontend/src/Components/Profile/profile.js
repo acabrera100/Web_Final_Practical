@@ -84,7 +84,7 @@ commentsByUser = () => {
   populateSelectButtonsProfile = () => {
     if (this.state.buttonRender === "Posted") {
       return (
-        <>
+        <div className='profile-container'>
           <button onClick={this.transform} name="Posted">
             Posted
           </button>{" "}
@@ -98,11 +98,11 @@ commentsByUser = () => {
           </form>
           {this.songsByUser()}
           {this.commentsByUser()}
-        </>
+        </div>
       );
     } else {
       return (
-        <>
+        <div className='profile-container'>
           <button onClick={this.transform} name="Posted">
             Posted
           </button>{" "}
@@ -110,7 +110,7 @@ commentsByUser = () => {
             Favorites
           </button>
           <h4>Favorite Songs from this User </h4>
-        </>
+        </div>
       );
     }
   };
@@ -118,7 +118,7 @@ commentsByUser = () => {
   render() {
     console.log(this.state);
     return (
-      <>
+      <div className='profileBody'>
         <Switch>
           <Route
             exact
@@ -128,9 +128,9 @@ commentsByUser = () => {
             }}
           />
         </Switch>
-        <h1> {this.state.loggedInUser} </h1>
+        <h1 className='loggedInUser'> {this.state.loggedInUser} </h1>
         {this.populateSelectButtonsProfile()}
-      </>
+      </div>
     );
   }
 }
