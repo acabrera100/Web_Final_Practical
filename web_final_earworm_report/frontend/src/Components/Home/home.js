@@ -1,7 +1,11 @@
  import React from 'react'
-
+import "../../CSS/Home.css";
  const Home = () =>{
-   return <h1> Earworm Report</h1>
+   return (
+     <div className='homePage'>
+     <h1> Earworm Report</h1>
+     </div>
+   )
  }
 
  export default Home;
