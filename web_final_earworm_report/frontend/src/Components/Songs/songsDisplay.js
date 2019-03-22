@@ -14,14 +14,13 @@ class SongsDisplay extends Component {
       song_id: "",
       liked: false,
       toggle: "Favorite",
-      inputTextAddComment:''
+      inputTextAddComment: ""
     };
   }
   componentDidMount() {
     axios.get("/songs").then(res => {
       return this.setState({
         songs: res.data.songs
-
       });
     });
   }
@@ -30,15 +29,14 @@ class SongsDisplay extends Component {
     let changeButtonPlaceholder =
       this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
     this.setState({
-      toggle: changeButtonPlaceholder,
-
+      toggle: changeButtonPlaceholder
     });
     e.preventDefault();
     console.log(song);
     if (!this.state.liked) {
       this.setState({
         liked: true,
-        likedValue:0
+        likedValue: 0
       });
       axios
         .post(`/favorites`, {
@@ -88,19 +86,21 @@ class SongsDisplay extends Component {
       });
   };
   // create an array of objects where i extrapulate the comments from each song, and then use this variable
-// I switched to this, thinking it will render all on one, not seperate li's with one comment for each.
-renderComments=()=>{
-let commentArray = this.props.songs.map(comment=>{
-  if(comment.com === comment.id){
-    return comment.comment_body
-  }else {
-    return null
-  }
-})
-return {commentArray}
-}
+  // I switched to this, thinking it will render all on one, not seperate li's with one comment for each.
+  // renderComments = () => {
+  //   let commentsArray = [];
+  //   let comments = this.props.songs.forEach(comment => {
+  //     // comment.comment_body.push(commentsArray);
+  //     if (comment..length > 1) {
+  //       return comment.comment_body;
+  //     } else {
+  //       return null;
+  //     }
+  //   });
+  //   return { comments };
+  // };
   render() {
-    console.log(this.renderComments());
+    // console.log(this.renderComments());
     let songsList = this.props.songs.map((song, i) => {
       let boundSongClick = this.favoriteASong.bind(this, song);
       let boundAddComment = this.handleAddComment.bind(this, song);
@@ -108,7 +108,7 @@ return {commentArray}
 
       if (song.title.toLowerCase()) {
         return (
-          <div className="li-box" key={i+1}>
+          <div className="li-box" key={i + 1}>
             <li key={i + 1} id={i + 1} className="songBox">
               <div className="box-1">
                 <img src={song.img_url} alt="thumbnail" className="thumbnail" />
@@ -150,7 +150,12 @@ return {commentArray}
         return null;
       }
     });
-    return <>{songsList}{this.commentArray}</>;
+    return (
+      <>
+        {songsList}
+        {this.commentArray}
+      </>
+    );
   }
 }
 export default SongsDisplay;
