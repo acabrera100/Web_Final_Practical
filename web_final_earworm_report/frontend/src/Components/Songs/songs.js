@@ -14,7 +14,8 @@ class Songs extends Component {
       comments: [],
       formInputText: "",
       toggle: "UnFavorite",
-      visible: "false"
+      visible: "false",
+      searched:false
     };
   }
 
@@ -37,6 +38,16 @@ class Songs extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+  if(this.state.searched === true ){
+    axios.get("/songs").then(res => {
+      return this.setState({
+        songs: res.data.songs
+      });
+    });
+    this.setState({
+      searched:false
+    })
+  }else {
     const filteredsongs = this.state.songs.filter(el => {
       return el.title
         .toLowerCase()
@@ -44,12 +55,14 @@ class Songs extends Component {
     });
 
     this.setState({
-      songs: filteredsongs
+      songs: filteredsongs,
+      searched:true
     });
+  }
   };
 
   render() {
-    // console.log(this.state);
+    console.log(this.state);
 
     return (
       <>
@@ -75,7 +88,7 @@ class Songs extends Component {
                     </div>
                     <ul>
                       {" "}
-                      <SongsDisplay />{" "}
+                      <SongsDisplay songs={this.state.songs} />{" "}
                     </ul>
                   </div>
                 </div>

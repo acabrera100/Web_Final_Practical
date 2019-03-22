@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-// import SongsDisplay from "./songsDisplay";
 
 class SongsByGenre extends Component {
   constructor(props) {

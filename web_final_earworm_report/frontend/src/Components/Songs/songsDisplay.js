@@ -4,8 +4,8 @@ import axios from "axios";
 import "../../CSS/SongsDisplay.css";
 
 class SongsDisplay extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       sampleUser: 1,
       songs: [],
@@ -85,7 +85,7 @@ class SongsDisplay extends Component {
   };
 
   render() {
-    let songsList = this.state.songs.map((song, i) => {
+    let songsList = this.props.songs.map((song, i) => {
       let boundSongClick = this.favoriteASong.bind(this, song);
       let boundAddComment = this.handleAddComment.bind(this, song);
       let boundItemClick = this.onSongClick.bind(this, song);
