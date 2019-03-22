@@ -1,0 +1,42 @@
+.Body {
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+}
+
+.div-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+  /* min-height: 100vh; */
+  background-color: #621389;
+  border: 5px black;
+  border-top-style: dotted;
+  border-right-style: solid;
+  border-bottom-style: dotted;
+  border-left-style: solid;
+  width: 70%;
+  color: white;
+}
+
+.select-buttonArea {
+  display: grid;
+  grid-template-rows: 55px ;
+  padding-bottom: 5px;
+  justify-content: center;
+  align-content: center;
+}
+.h1 {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 35px;
+}
+.select{
+  margin-top: 10px;
+  margin-right: 20px;
+  font-size: 35px
+}
+.submit-button{
+  height: 35px;
+  color:red
+}

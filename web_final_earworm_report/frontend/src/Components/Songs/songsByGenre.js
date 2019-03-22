@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "../../CSS/SongsbyGenre.css";
+
 
 
 class SongsByGenre extends Component {
@@ -124,17 +126,17 @@ class SongsByGenre extends Component {
       );
     });
     return (
-      <>
+      <div className='select-buttonArea'>
         <form onSubmit={this.handleFormSubmit}>
-          <select name="selectedGenre"  onChange={this.handleSelect}>
+          <select className='select'name="selectedGenre"  onChange={this.handleSelect}>
             <option key="0" name="selectedGenre" value="">
               {" "}
             </option>
             {genreList}
           </select>
-          <button type="submit">Sort byGenre</button>
+          <button type="submit" className='submit-button'>Sort byGenre</button>
         </form>
-      </>
+      </div>
     );
   };
 
@@ -158,7 +160,10 @@ class SongsByGenre extends Component {
 
       if (song.title.toLowerCase()) {
         return (
+          <div className='Body' key={i+1}>
+          <div className="container">
           <div className="li-box" key={i+1}>
+          <ul>
             <li key={i + 1} id={i + 1} className="songBox">
               <div className="box-1">
                 <img src={song.img_url} alt="thumbnail" className="thumbnail" />
@@ -194,6 +199,9 @@ class SongsByGenre extends Component {
                 </form>
               </div>
             </li>
+            </ul>
+          </div>
+          </div>
           </div>
         );
       } else {
@@ -203,8 +211,8 @@ class SongsByGenre extends Component {
     return (
       <>
         {this.populateSelectGenres()}
-        <ul>{songsList}
-        </ul>
+        {songsList}
+
       </>
     );
   }
