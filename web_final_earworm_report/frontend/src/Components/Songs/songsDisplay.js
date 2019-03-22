@@ -92,8 +92,11 @@ class SongsDisplay extends Component {
 
       if (song.title.toLowerCase()) {
         return (
+          <div className='li-box'>
           <li key={i + 1} id={i + 1} className="songBox">
-            <img src={song.img_url} alt="s" className='box-1'/>
+              <div className="box-1">
+            <img src={song.img_url} alt="s" className='thumbnail'/>
+            </div>
             <div className="box-2">
               {song.title} {song.favorites}
               <button onClick={boundSongClick}>{this.state.toggle}</button>
@@ -118,8 +121,9 @@ class SongsDisplay extends Component {
             <div className="box-5"></div>
             <div className="box-6"></div>
 
-    
+
           </li>
+          </div>
         );
       } else {
         return null;

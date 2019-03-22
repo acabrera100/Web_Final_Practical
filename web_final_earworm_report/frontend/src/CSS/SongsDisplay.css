@@ -1,18 +1,30 @@
-.AllSongsBody{
+.AllSongsBody {
   display: flex;
   justify-content: center;
   padding-top: 15px;
   min-height: 100vh;
 }
-
-.songBox{
-  background-color:#d1d1d1;
+.li-box {
+  display: flex;
+  justify-content: center;
+}
+.songBox {
+  background-color: #d1d1d1;
+  height: 150px;
+  width: 910px;
   border: 5px black;
   border-style: solid;
-  width: 70%;
-  color:white;
+  color: white;
   display: grid;
   grid-template-columns: 20% 80%;
-grid-template-rows: 60% 20% 20%;
-  margin: none
+  grid-template-rows: 60% 20% 20%;
+}
+
+.thumbnail {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.box-3 {
+  font-size: 15px;
 }
