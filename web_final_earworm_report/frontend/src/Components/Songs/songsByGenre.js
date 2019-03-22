@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import SongDisplay from "./songsDisplay";
+import SongsDisplay from "./songsDisplay";
 
 class SongsByGenre extends Component {
   constructor(props) {
@@ -80,7 +80,8 @@ class SongsByGenre extends Component {
     return (
       <>
         {this.populateSelectGenres()}
-        <ul>{songsList}</ul>
+        <ul>{songsList}
+        <SongsDisplay /></ul>
       </>
     );
   }

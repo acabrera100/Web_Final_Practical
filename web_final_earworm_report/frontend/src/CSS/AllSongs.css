@@ -19,8 +19,7 @@
 .searchbyTitle {
   display: grid;
   grid-template-rows: 55px 55px;
-  /* background-color: red; */
-  padding-bottom: 50px;
+  padding-bottom: 5px;
   justify-content: center;
   align-content: center;
 }
@@ -33,4 +32,5 @@
   margin-top: 10px;
   margin-right: 20px;
   width: 250px;
+
 }

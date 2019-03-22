@@ -59,26 +59,25 @@ class Songs extends Component {
             path="/songs"
             render={() => {
               return (
-                <div className='AllSongsBody'>
-                <div className='container'>
-                <div className='searchbyTitle'>
-                <h1 className='h1'> Search by Title</h1>
-                  <form onSubmit={this.handleSubmit}>
-                    <input
-                      className='search-button'
-                      type="text"
-                      value={this.state.formInputText}
-                      onChange={this.handleChange}
-                    />
-                    <input type="submit" value="Search" />
-                  </form>
+                <div className="AllSongsBody">
+                  <div className="container">
+                    <div className="searchbyTitle">
+                      <h1 className="h1"> Search by Title</h1>
+                      <form onSubmit={this.handleSubmit}>
+                        <input
+                          className="search-button"
+                          type="text"
+                          value={this.state.formInputText}
+                          onChange={this.handleChange}
+                        />
+                        <input type="submit" value="Search" />
+                      </form>
+                    </div>
+                    <ul>
+                      {" "}
+                      <SongsDisplay />{" "}
+                    </ul>
                   </div>
-                  <ul>
-                    {" "}
-                    <SongsDisplay songs={this.state.songs} />{" "}
-                  </ul>
-
-                </div>
                 </div>
               );
             }}
@@ -99,7 +98,17 @@ class Songs extends Component {
             exact
             path="/songs/:id"
             render={() => {
-              return <SingleSong tite={this.state.songs.title} artist={this.state.songs.artist} img_url={this.state.songs.img_url} username={this.state.comments.username} comment_body={this.state.songs.comment_body} favorites={this.state.songs.favorites} songsId={this.state.songs.id}/>;
+              return (
+                <SingleSong
+                  tite={this.state.songs.title}
+                  artist={this.state.songs.artist}
+                  img_url={this.state.songs.img_url}
+                  username={this.state.comments.username}
+                  comment_body={this.state.songs.comment_body}
+                  favorites={this.state.songs.favorites}
+                  songsId={this.state.songs.id}
+                />
+              );
             }}
           />
         </Switch>

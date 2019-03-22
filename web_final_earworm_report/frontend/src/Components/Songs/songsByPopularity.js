@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-// import SongsDisplay from './songsDisplay.js'
+import SongsDisplay from './songsDisplay.js'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 class SongByPopularity extends Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state={
       songsByPop:[]
     }
@@ -46,9 +46,11 @@ componentDidMount(){
     });
     return(
       <>
-      {songsList}
+      <SongsDisplay/>
       </>
     )
   }
 }
 export default SongByPopularity;
+
+//       {songsList}
