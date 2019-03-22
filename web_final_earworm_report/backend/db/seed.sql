@@ -31,7 +31,7 @@ song_id INT REFERENCES songs(id)
 
 CREATE TABLE comments(
 id SERIAL PRIMARY KEY,
-comment_body VARCHAR NOT NULL,
+comment_body VARCHAR ,
 user_id INT REFERENCES users(id),
 song_id INT REFERENCES songs(id),
 time_added TIMESTAMP

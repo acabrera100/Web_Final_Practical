@@ -18,6 +18,7 @@ class Profile extends Component {
     };
   }
   componentDidMount() {
+    console.log(this.state);
     axios.get("/users").then(res => {
       return this.setState({
         users: res.data.users

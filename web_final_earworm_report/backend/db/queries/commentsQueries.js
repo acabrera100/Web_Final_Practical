@@ -20,7 +20,7 @@ const getAllComments = (req, res, next) => {
 const getAllCommentsPostedByUser = (req, res, next) => {
   let userId = req.params.id;
   db.any(
-    "SELECT DISTINCT comments.id,username,comment_body FROM songs  JOIN favorites ON favorites.song_id = songs.id JOIN users ON users.id = songs.user_id JOIN comments ON comments.user_id = users.id WHERE users.id = $1 GROUP BY comments.id,username,comment_body",
+    "SELECT  songs.id AS songID ,comments.id,username,comment_body FROM songs  JOIN users ON users.id = songs.user_id JOIN comments ON comments.user_id = users.id WHERE users.id = $1 AND songs.id = comments.song_id GROUP BY songID, comments.id,username,comment_body",
     [userId]
   )
     .then(data => {
