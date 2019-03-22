@@ -11,8 +11,10 @@ class SongsDisplay extends Component {
       user_id: "",
       song_id: "",
       liked: false,
-      toggle: "Favorite"
+      toggle: "Favorite",
+      inputTextAddComment: ""
     };
+this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
     axios.get("/songs").then(res => {
@@ -21,7 +23,11 @@ class SongsDisplay extends Component {
       });
     });
   }
-
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
   favoriteASong = (item, e) => {
     let changeButtonPlaceholder =
       this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
@@ -59,9 +65,27 @@ class SongsDisplay extends Component {
       toggle: changeButtonPlaceholder
     });
   };
+
+  handleAddComment = (item, e) => {
+    e.preventDefault();
+    axios
+      .post(`/comments`, {
+        comment_body: this.state.inputTextAddComment,
+        user_id: this.state.sampleUser,
+        song_id: item.id
+      })
+.then(res => {
+        console.log(res);
+        console.log(res.data);
+      });
+  };
+
   render() {
     let songsList = this.state.songs.map((song, i) => {
       let boundSongClick = this.favoriteASong.bind(this, song);
+      let boundAddComment = this.handleAddComment.bind(this, song);
+
+
       if (song.title.toLowerCase()) {
         return (
           <li key={i + 1} id={i + 1}>
@@ -76,9 +100,17 @@ class SongsDisplay extends Component {
             <br />
             {song.favorites}
             <button onClick={boundSongClick}>{this.state.toggle}</button>
-            <form>
-              <input type="text" />
-              <input type="submit" />
+            <form onSubmit={boundAddComment}>
+              <input
+
+                id={i + 1}
+                type="text"
+                name="inputTextAddComment"
+                value={this.state.inputTextAddComment}
+                placeholder={"Add a Comment"}
+                onChange={this.handleChange}
+              />
+              <input type="submit" value="Submit" />
             </form>
             {song.comment_body}
           </li>
