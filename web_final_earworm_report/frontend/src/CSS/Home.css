@@ -3,4 +3,13 @@
   justify-content: center;
   padding-top: 15px;
   font-size: 90px;
+  min-height: 100vh;
+
+}
+
+.container{
+  background-color: #621389;
+  border: 5px black;
+  border-style: double;
+  width: 70%
 }

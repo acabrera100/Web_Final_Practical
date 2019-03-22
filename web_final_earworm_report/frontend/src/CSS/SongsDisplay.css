@@ -1,0 +1,18 @@
+.AllSongsBody{
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+  min-height: 100vh;
+}
+
+.songBox{
+  background-color:#d1d1d1;
+  border: 5px black;
+  border-style: solid;
+  width: 70%;
+  color:white;
+  display: grid;
+  grid-template-columns: 20% 80%;
+grid-template-rows: 60% 20% 20%;
+  margin: none
+}

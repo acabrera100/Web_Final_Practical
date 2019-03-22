@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "../../CSS/SongsDisplay.css";
 
 class SongsDisplay extends Component {
   constructor(props) {
@@ -65,7 +66,7 @@ class SongsDisplay extends Component {
     console.log(song);
     this.setState({
       [e.target.name]: e.target.value,
-      id:''
+      id: ""
     });
   };
 
@@ -91,32 +92,33 @@ class SongsDisplay extends Component {
 
       if (song.title.toLowerCase()) {
         return (
-          <li key={i + 1} id={i + 1}>
-            Title: {song.title}
-            <br />
-            Artist: {song.artist}
-            <br />
-            <img src={song.img_url} alt="song" />
-            <br />
+          <li key={i + 1} id={i + 1} className="songBox">
+            <img src={song.img_url} alt="s" className='box-1'/>
+            <div className="box-2">
+              {song.title} {song.favorites}
+              <button onClick={boundSongClick}>{this.state.toggle}</button>
+              <form onSubmit={boundAddComment}>
+                <input
+                  key={song.key}
+                  id={i + 1}
+                  type="text"
+                  name="inputTextAddComment"
+                  value={this.state.inputTextAddComment}
+                  placeholder={"Add a Comment"}
+                  onChange={boundItemClick}
+                />
+                <input type="submit" value="Submit" />
+              </form>
+            </div>
+            <div className='box-3'>
             Posted by:
             <Link to={"/profile/" + song.id}>{song.username}</Link>
-            <br />
-            {song.favorites}
-            <button onClick={boundSongClick}>{this.state.toggle}</button>
-            <form onSubmit={boundAddComment}>
-              <input
-                key={song.key}
-                id={i + 1}
-                type="text"
-                name="inputTextAddComment"
-                value={this.state.inputTextAddComment}
-                placeholder={"Add a Comment"}
+            </div>
+            <div className="box-4">{song.comment_body}</div>
+            <div className="box-5"></div>
+            <div className="box-6"></div>
 
-                onChange={boundItemClick}
-              />
-              <input type="submit" value="Submit"  />
-            </form>
-            {song.comment_body}
+    
           </li>
         );
       } else {

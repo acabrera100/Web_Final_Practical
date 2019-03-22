@@ -5,7 +5,7 @@ import SongByPopularity from "./songsByPopularity.js";
 import SongsByGenre from "./songsByGenre.js";
 import SingleSong from "./singleSong.js";
 import SongsDisplay from "./songsDisplay.js";
-
+import "../../CSS/AllSongs.css";
 class Songs extends Component {
   constructor() {
     super();
@@ -59,7 +59,8 @@ class Songs extends Component {
             path="/songs"
             render={() => {
               return (
-                <>
+                <div className='AllSongsBody'>
+                <div className='container'>
                   <form onSubmit={this.handleSubmit}>
                     <input
                       type="text"
@@ -74,7 +75,8 @@ class Songs extends Component {
                     {" "}
                     <SongsDisplay songs={this.state.songs} />{" "}
                   </ul>
-                </>
+                </div>
+                </div>
               );
             }}
           />

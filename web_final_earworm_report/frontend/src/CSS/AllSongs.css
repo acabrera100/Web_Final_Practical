@@ -1,0 +1,18 @@
+.AllSongsBody{
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+  min-height: 100vh;
+
+}
+
+.container{
+  background-color: #621389;
+  border: 5px black;
+  border-top-style: dotted;
+ border-right-style: solid;
+ border-bottom-style: dotted;
+ border-left-style: solid;
+  width: 70%;
+  color:white;
+}
