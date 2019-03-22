@@ -57,7 +57,7 @@ const getAllCommentsForSpecificSong = (req, res, next) => {
 
 const createComment = (req, res, next) => {
   db.none(
-    "INSERT INTO comments(comment_body,user_id,song_id) VALUES ( ${comment_body}, ${user_id}, ${comments.song_id})",
+    "INSERT INTO comments(comment_body,user_id,song_id) VALUES ( ${comment_body}, ${user_id}, ${song_id})",
     req.body
   )
     .then(() => {

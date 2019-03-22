@@ -14,7 +14,7 @@ class SongsDisplay extends Component {
       toggle: "Favorite",
       inputTextAddComment: ""
     };
-this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
     axios.get("/songs").then(res => {
@@ -23,19 +23,20 @@ this.handleChange = this.handleChange.bind(this);
       });
     });
   }
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
-  favoriteASong = (item, e) => {
+  // handleChange = e => {
+  //   // console.log(this.state.inputTextAddComment);
+  //   this.setState({
+  //     [e.target.name]: e.target.value
+  //   });
+  // };
+  favoriteASong = (song, e) => {
     let changeButtonPlaceholder =
       this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
     this.setState({
       toggle: changeButtonPlaceholder
     });
     e.preventDefault();
-    console.log(item);
+    console.log(song);
     if (!this.state.liked) {
       this.setState({
         liked: true
@@ -43,7 +44,7 @@ this.handleChange = this.handleChange.bind(this);
       axios
         .post(`/favorites`, {
           user_id: this.state.sampleUser,
-          song_id: item.id
+          song_id: song.id
         })
         .then(res => {
           console.log(res);
@@ -53,7 +54,7 @@ this.handleChange = this.handleChange.bind(this);
       this.setState({
         liked: false
       });
-      axios.delete(`/favorites/${item.id}`).then(res => {
+      axios.delete(`/favorites/${song.id}`).then(res => {
         console.log(res.data);
       });
     }
@@ -66,15 +67,23 @@ this.handleChange = this.handleChange.bind(this);
     });
   };
 
-  handleAddComment = (item, e) => {
+  onSongClick = (song, e) => {
+    console.log(song);
+    this.setState({
+      [e.target.name]: e.target.value,
+      id:''
+    });
+  };
+
+  handleAddComment = (song, e) => {
     e.preventDefault();
     axios
       .post(`/comments`, {
         comment_body: this.state.inputTextAddComment,
         user_id: this.state.sampleUser,
-        song_id: item.id
+        song_id: song.id
       })
-.then(res => {
+      .then(res => {
         console.log(res);
         console.log(res.data);
       });
@@ -84,7 +93,7 @@ this.handleChange = this.handleChange.bind(this);
     let songsList = this.state.songs.map((song, i) => {
       let boundSongClick = this.favoriteASong.bind(this, song);
       let boundAddComment = this.handleAddComment.bind(this, song);
-
+      let boundItemClick = this.onSongClick.bind(this, song);
 
       if (song.title.toLowerCase()) {
         return (
@@ -102,15 +111,16 @@ this.handleChange = this.handleChange.bind(this);
             <button onClick={boundSongClick}>{this.state.toggle}</button>
             <form onSubmit={boundAddComment}>
               <input
-
+                key={song.key}
                 id={i + 1}
                 type="text"
                 name="inputTextAddComment"
                 value={this.state.inputTextAddComment}
                 placeholder={"Add a Comment"}
-                onChange={this.handleChange}
+
+                onChange={boundItemClick}
               />
-              <input type="submit" value="Submit" />
+              <input type="submit" value="Submit"  />
             </form>
             {song.comment_body}
           </li>
