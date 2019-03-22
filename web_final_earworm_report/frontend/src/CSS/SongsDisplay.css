@@ -11,20 +11,60 @@
 .songBox {
   background-color: #d1d1d1;
   height: 150px;
-  width: 910px;
+  width: 810px;
   border: 5px black;
   border-style: solid;
   color: white;
   display: grid;
   grid-template-columns: 20% 80%;
-  grid-template-rows: 60% 20% 20%;
+  grid-template-rows: 60% 40% ;
 }
 
 .thumbnail {
   max-height: 100%;
   max-width: 100%;
 }
+.box-2 {
+  display: grid;
+  grid-template-columns: 50% 30% 20%;
+
+  border: 2px black;
+  border-style: solid;
+  height: 50px;
+  font-size: 25px;
+}
+.box-2one {
+  padding-left: 300px;
+}
+.myButton {
+  background-color: #00f281;
+  -moz-border-radius: 42px;
+  -webkit-border-radius: 42px;
+  border-radius: 42px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 10px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #2b665e;
+}
+.myButton:hover {
+  background-color: #6c7c7c;
+}
+.myButton:active {
+  position: relative;
+  top: 1px;
+}
 
 .box-3 {
   font-size: 15px;
+}
+
+.box-4{
+
+  border: 2px black;
+  border-style: solid;
+  height: 50px;
+  width: 620px;
 }

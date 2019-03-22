@@ -92,14 +92,25 @@ class SongsDisplay extends Component {
 
       if (song.title.toLowerCase()) {
         return (
-          <div className='li-box'>
-          <li key={i + 1} id={i + 1} className="songBox">
+          <div className="li-box">
+            <li key={i + 1} id={i + 1} className="songBox">
               <div className="box-1">
-            <img src={song.img_url} alt="s" className='thumbnail'/>
-            </div>
-            <div className="box-2">
-              {song.title} {song.favorites}
-              <button onClick={boundSongClick}>{this.state.toggle}</button>
+                <img src={song.img_url} alt="s" className="thumbnail" />
+              </div>
+              <div className="box-2">
+                <div>{song.title}</div>
+                <div>Favorites:{song.favorites}</div>
+                <button onClick={boundSongClick} className="myButton">
+                  {this.state.toggle}
+                </button>
+              </div>
+              <div className="box-3">
+                Posted by:
+                <Link to={"/profile/" + song.id}>{song.username}</Link>
+              </div>
+              <div className="box-4">
+                {song.comment_body}
+              </div>
               <form onSubmit={boundAddComment}>
                 <input
                   key={song.key}
@@ -112,17 +123,7 @@ class SongsDisplay extends Component {
                 />
                 <input type="submit" value="Submit" />
               </form>
-            </div>
-            <div className='box-3'>
-            Posted by:
-            <Link to={"/profile/" + song.id}>{song.username}</Link>
-            </div>
-            <div className="box-4">{song.comment_body}</div>
-            <div className="box-5"></div>
-            <div className="box-6"></div>
-
-
-          </li>
+            </li>
           </div>
         );
       } else {
