@@ -9,6 +9,7 @@ class SongsDisplay extends Component {
     this.state = {
       sampleUser: 1,
       songs: [],
+
       user_id: "",
       song_id: "",
       liked: false,
@@ -20,6 +21,7 @@ class SongsDisplay extends Component {
     axios.get("/songs").then(res => {
       return this.setState({
         songs: res.data.songs
+
       });
     });
   }
@@ -85,19 +87,24 @@ class SongsDisplay extends Component {
         console.log(res.data);
       });
   };
-// renderSongs=()=>{
-//   create an array of objects where i extrapulate the comments from each song, and then use this variable
-// let commentArray = this.props.songs.map(comment)=>{
-//   song.id === comments.song.id
-// }
-// return <li>commentArray</li>
-// }
+  // create an array of objects where i extrapulate the comments from each song, and then use this variable
+// I switched to this, thinking it will render all on one, not seperate li's with one comment for each.
+renderComments=()=>{
+let commentArray = this.props.songs.map(comment=>{
+  if(comment.com === comment.id){
+    return comment.comment_body
+  }else {
+    return null
+  }
+})
+return {commentArray}
+}
   render() {
+    console.log(this.renderComments());
     let songsList = this.props.songs.map((song, i) => {
       let boundSongClick = this.favoriteASong.bind(this, song);
       let boundAddComment = this.handleAddComment.bind(this, song);
       let boundItemClick = this.onSongClick.bind(this, song);
-      console.log(this.state.comment_body);
 
       if (song.title.toLowerCase()) {
         return (
@@ -143,11 +150,11 @@ class SongsDisplay extends Component {
         return null;
       }
     });
-    return <>{songsList}</>;
+    return <>{songsList}{this.commentArray}</>;
   }
 }
 export default SongsDisplay;
-// \ine 118
+// line 120
 // {this.renderSongs()}
 
 //

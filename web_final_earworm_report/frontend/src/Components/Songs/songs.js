@@ -45,7 +45,7 @@ class Songs extends Component {
       });
     });
     this.setState({
-      searched:false
+      searched:false,
     })
   }else {
     const filteredsongs = this.state.songs.filter(el => {
@@ -56,7 +56,8 @@ class Songs extends Component {
 
     this.setState({
       songs: filteredsongs,
-      searched:true
+      searched:true,
+      formInputText:''
     });
   }
   };

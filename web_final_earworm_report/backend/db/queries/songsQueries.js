@@ -2,7 +2,7 @@ const { db } = require("./index.js");
 
 const getAllSongs = (req, res, next) => {
   db.any(
-  "SELECT genre_name,comments.id AS com,songs.id,title,artist,img_url,username,date_added,comment_body ,COUNT(favorites.song_id)AS Favorites FROM songs JOIN favorites ON favorites.song_id = songs.id JOIN users ON songs.user_id = users.id JOIN comments ON songs.id = comments.song_id JOIN genres ON songs.genre_id = genres.id GROUP BY genre_name,comments.id,songs.id,title,artist,comment_body,username,img_url, date_added ORDER BY DATE(date_added) DESC"
+  "SELECT genre_name,comments.id AS com,songs.id,title,artist,img_url,username,date_added,comment_body ,COUNT(favorites.song_id)AS Favorites FROM songs JOIN favorites ON favorites.song_id = songs.id JOIN users ON songs.user_id = users.id JOIN comments ON songs.id = comments.song_id JOIN genres ON songs.genre_id = genres.id WHERE songs.id = comments.song_id GROUP BY genre_name,comments.id,songs.id,title,artist,comment_body,username,img_url, date_added ORDER BY DATE(date_added) DESC"
 
   )
     .then(data => {
@@ -57,7 +57,7 @@ const getAllSongsForSpecificGenre = (req, res, next) => {
 const getAllSongsBySpecificUser = (req, res, next) => {
   let userName = parseInt(req.params.id);
   db.any(
-    "SELECT songs.id,title,artist,img_url,genre_name,COUNT(song_id)AS Likes FROM songs JOIN favorites ON favorites.song_id = songs.id JOIN genres  ON genres.id = songs.genre_id JOIN users ON users.id = songs.user_id WHERE users.id = $1 GROUP BY songs.id,title,artist,genre_name,img_url ORDER BY likes DESC",
+    "SELECT songs.id,title,artist,img_url,genre_name,COUNT(song_id)AS Likes FROM songs JOIN favorites ON favorites.song_id = songs.id JOIN genres  ON genres.id = songs.genre_id JOIN users ON users.id = songs.user_id WHERE users.id = $1  GROUP BY songs.id,title,artist,genre_name,img_url ORDER BY likes DESC",
     [userName]
   )
     .then(data => {
