@@ -14,7 +14,6 @@ class SongsDisplay extends Component {
       toggle: "Favorite",
       inputTextAddComment: ""
     };
-    // this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
     axios.get("/songs").then(res => {
@@ -23,12 +22,7 @@ class SongsDisplay extends Component {
       });
     });
   }
-  // handleChange = e => {
-  //   // console.log(this.state.inputTextAddComment);
-  //   this.setState({
-  //     [e.target.name]: e.target.value
-  //   });
-  // };
+
   favoriteASong = (song, e) => {
     let changeButtonPlaceholder =
       this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
@@ -76,7 +70,7 @@ class SongsDisplay extends Component {
   };
 
   handleAddComment = (song, e) => {
-    e.preventDefault();
+    // e.preventDefault();
     axios
       .post(`/comments`, {
         comment_body: this.state.inputTextAddComment,
@@ -90,7 +84,7 @@ class SongsDisplay extends Component {
   };
 
   render() {
-    let songsList = this.state.songs.map((song, i) => {
+    let songsList = this.props.songs.map((song, i) => {
       let boundSongClick = this.favoriteASong.bind(this, song);
       let boundAddComment = this.handleAddComment.bind(this, song);
       let boundItemClick = this.onSongClick.bind(this, song);

@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import { Route,  Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import axios from "axios";
 import SongByPopularity from "./songsByPopularity.js";
 import SongsByGenre from "./songsByGenre.js";
 import SingleSong from "./singleSong.js";
-import SongsDisplay from './songsDisplay.js'
+import SongsDisplay from "./songsDisplay.js";
 
 class Songs extends Component {
   constructor() {
     super();
     this.state = {
       songs: [],
-      comments:[],
+      comments: [],
       formInputText: "",
       toggle: "UnFavorite",
       visible: "false"
@@ -48,22 +48,8 @@ class Songs extends Component {
     });
   };
 
-  favorASong = () => {
-    console.log("you favoored something here");
-    if (this.state.favored === false) {
-      axios.post(`/favorites`).then(res => {
-        console.log(res);
-        console.log(res.data);
-      });
-      return this.state.favored === true;
-    } else {
-      return false;
-    }
-  };
-
   render() {
     // console.log(this.state);
-
 
     return (
       <>
@@ -84,7 +70,10 @@ class Songs extends Component {
                     <input type="submit" value="Search by Title" />
                   </form>
                   <h1> All Songs</h1>
-                  <ul> <SongsDisplay songs={this.state.songs}/> </ul>
+                  <ul>
+                    {" "}
+                    <SongsDisplay songs={this.state.songs} />{" "}
+                  </ul>
                 </>
               );
             }}
@@ -105,7 +94,7 @@ class Songs extends Component {
             exact
             path="/songs/:id"
             render={() => {
-              return <SingleSong songs={this.state.songs} />;
+              return <SingleSong tite={this.state.songs.title} artist={this.state.songs.artist} img_url={this.state.songs.img_url} username={this.state.comments.username} comment_body={this.state.songs.comment_body} favorites={this.state.songs.favorites} songsId={this.state.songs.id}/>;
             }}
           />
         </Switch>
