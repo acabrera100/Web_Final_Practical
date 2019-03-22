@@ -62,9 +62,12 @@
 }
 
 .box-4{
-
   border: 2px black;
   border-style: solid;
   height: 50px;
   width: 620px;
+  position: relative;
+  bottom: 37px;
+  left: 24px
+
 }

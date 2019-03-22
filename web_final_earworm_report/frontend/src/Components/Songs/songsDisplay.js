@@ -98,6 +98,7 @@ class SongsDisplay extends Component {
                 <img src={song.img_url} alt="s" className="thumbnail" />
               </div>
               <div className="box-2">
+
                 <div>{song.title}</div>
                 <div>Favorites:{song.favorites}</div>
                 <button onClick={boundSongClick} className="myButton">
@@ -108,21 +109,21 @@ class SongsDisplay extends Component {
                 Posted by:
                 <Link to={"/profile/" + song.id}>{song.username}</Link>
               </div>
-              <div className="box-4">
-                {song.comment_body}
+              <div className="box-4">{song.comment_body}</div>
+              <div className="box-6">
+                <form onSubmit={boundAddComment}>
+                  <input
+                    key={song.key}
+                    id={i + 1}
+                    type="text"
+                    name="inputTextAddComment"
+                    value={this.state.inputTextAddComment}
+                    placeholder={"Add a Comment"}
+                    onChange={boundItemClick}
+                  />
+                  <input type="submit" value="Submit" />
+                </form>
               </div>
-              <form onSubmit={boundAddComment}>
-                <input
-                  key={song.key}
-                  id={i + 1}
-                  type="text"
-                  name="inputTextAddComment"
-                  value={this.state.inputTextAddComment}
-                  placeholder={"Add a Comment"}
-                  onChange={boundItemClick}
-                />
-                <input type="submit" value="Submit" />
-              </form>
             </li>
           </div>
         );
