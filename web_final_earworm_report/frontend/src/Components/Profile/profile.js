@@ -18,7 +18,7 @@ class Profile extends Component {
       songInputText: "",
       img_urlInputText: "",
       artistInputText:'',
-      selectedGenreId: ""
+      selectedGenreId: parseInt("")
     };
   }
   componentDidMount() {
@@ -46,10 +46,12 @@ class Profile extends Component {
   }
   handleAddSong = (song, e) => {
     // e.preventDefault();
+    console.log();
     axios
       .post(`/songs`, {
         title: this.state.songInputText,
         artist: this.state.artistInputText,
+        img_url:this.state.img_urlInputText,
         genre_id: this.state.selectedGenreId,
         user_id: this.state.loggedInUserId
       })
