@@ -10,15 +10,19 @@ class Profile extends Component {
     this.state = {
       users: [],
       songsByUser: [],
+      genres: [],
       commentsByUser: [],
       loggedInUser: "felipe_queens",
+      loggedInUserId:1,
       buttonRender: "Posted",
       songInputText: "",
-      img_urlInputText: ""
+      img_urlInputText: "",
+      artistInputText:'',
+      selectedGenreId: ""
     };
   }
   componentDidMount() {
-    console.log(this.state);
+    // console.log(this.state);
     axios.get("/users").then(res => {
       return this.setState({
         users: res.data.users
@@ -34,8 +38,51 @@ class Profile extends Component {
         commentsByUser: res.data.comments
       });
     });
+    axios.get("/genres").then(res => {
+      return this.setState({
+        genres: res.data.genres
+      });
+    });
   }
+  handleAddSong = (song, e) => {
+    // e.preventDefault();
+    axios
+      .post(`/songs`, {
+        title: this.state.songInputText,
+        artist: this.state.artistInputText,
+        genre_id: this.state.selectedGenreId,
+        user_id: this.state.loggedInUserId
+      })
+      .then(res => {
+        // console.log(res);
+        console.log(res.data);
+      });
+  };
 
+  populateSelectGenres = () => {
+    let genreList = this.state.genres.map((genre, i) => {
+      return (
+        <option key={i + 1} name="selectedGenreId" value={genre.id}>
+          {" "}
+          {genre.genre_name}
+        </option>
+      );
+    });
+    return (
+      <div className="select-buttonArea">
+        <select
+          className="select"
+          name="selectedGenre"
+          onChange={this.handleSelect}
+        >
+          <option key="0" name="selectedGenreId" value="">
+            {" "}
+          </option>
+          {genreList}
+        </select>
+      </div>
+    );
+  };
   commentsByUser = () => {
     if (this.state.songsByUser.id === this.commentsByUser.songid) {
       let commentsPostedByUser = this.state.commentsByUser.map((comment, i) => {
@@ -69,7 +116,14 @@ class Profile extends Component {
       </>
     );
   };
-
+  handleSelect = e => {
+    // debugger
+    // console.log("ok something worked", e.target.value);
+    this.setState({
+      [e.target.name]: e.target.value,
+      formSubmitted: false
+    });
+  };
   transform = () => {
     let toggleButton =
       this.state.buttonRender === "Posted" ? "Favorites" : "Posted";
@@ -86,26 +140,63 @@ class Profile extends Component {
           <h1 className="loggedInUser"> {this.state.loggedInUser} </h1>
           <div className="grid-container">
             <div className="posts">
-              <button className="buttons" onClick={this.transform} name="Posted">
+              <button
+                className="buttons"
+                onClick={this.transform}
+                name="Posted"
+              >
                 Posted
               </button>
             </div>
             <div className="favorites">
-              <button className="buttons" onClick={this.transform} name="Favorites">
+              <button
+                className="buttons"
+                onClick={this.transform}
+                name="Favorites"
+              >
                 Favorites
               </button>
             </div>
           </div>
-          <div className='grid-container2'>
-          <div className='htag'><h4>Submit New Song </h4></div>
-          <div classname='submit-form'>
-          <form>
-            <input className='input-submit'type="text" placeholder="Song Title" />{" "}
-            <input  className='input-submit'type="text" placeholder="Img_Url" />
-            <button className='submitbtn'type="submit">Submit</button>
-          </form>
+          <div className="grid-container2">
+            <div className="htag">
+              <h4>Submit New Song </h4>
+            </div>
+            <div className="submit-form">
+              <form onSubmit={this.handleAddSong}>
+                {this.populateSelectGenres()}
+                <input
+                  className="inputs"
+                  type="text"
+                  name='songInputText'
+                  value={this.state.songInputText}
+                  placeholder="Song Title"
+                  onChange={this.handleSelect}
+
+                />{" "}
+                <input
+                  className="inputs"
+                  type="text"
+                  value={this.state.img_urlInputText}
+                    name='img_urlInputText'
+                  placeholder="Img_Url"
+                  onChange={this.handleSelect}
+
+                />
+                <input
+                  className="inputs"
+                  type="text"
+                  value={this.state.artistInputText}
+                  name='artistInputText'
+                  placeholder="Artist"
+                  onChange={this.handleSelect}
+                />
+                <button className="submitbtn" type="submit">
+                  Submit
+                </button>
+              </form>
+            </div>
           </div>
-          </div >
           {this.songsByUser()}
         </div>
       );

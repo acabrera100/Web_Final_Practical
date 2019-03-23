@@ -61,11 +61,12 @@ img {
   grid-template-rows: 1fr 1fr;
   grid-template-areas: "h4" "form";
 }
-.input-submit{
+.inputs{
+
   margin-left: 10px;
   margin-right: 10px;
   height: 30px;
-  width: 240px;
+  width:190px;
 }
 .submitbtn{
   height: 30px;
