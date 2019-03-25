@@ -1,3 +1,11 @@
+//Favorite count is styled to be outside of the box. Looks odd.
+// The other styling looks pretty good though.
+// Favoriting behaivor not working as expected.
+//All of them are changing on click.
+// Good job fixing search.
+//comment input filling for all songs (same kind of behaivor as favorites)
+
+
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";

@@ -1,3 +1,10 @@
+// I am seeing felipe_queens on every profile.
+//toggle not working appropriately.
+//No need for me to sort by genre on this page.
+// Was unable to post a new song.
+// No commenting and favoriting again.
+
+
 import React, { Component } from "react";
 import axios from "axios";
 import { Route, Switch } from "react-router-dom";
