@@ -49,7 +49,7 @@ class SongsByGenre extends Component {
       toggle: changeButtonPlaceholder
     });
     e.preventDefault();
-    console.log(song);
+    // console.log(song);
     if (!this.state.liked) {
       this.setState({
         liked: true
@@ -101,20 +101,49 @@ class SongsByGenre extends Component {
         console.log(res.data);
       });
   };
+// ---
+
+filterSongs = async ()=>{
+  // debugger
+  const {selectedGenre,formSubmitted}=this.state
+  if (formSubmitted && selectedGenre){
+  await axios.get(`/songs/byGenre/${selectedGenre}`)
+      .then(thing=>{
+        this.setState({
+          songs:thing.data.songs
+        })
+      })
+    } else {
+      return this.state.songs
+    }
+}
+
+handleSubmit = async(e)=>{
+  // debugger
+  await e.preventDefault()
+  await this.filterSongs()
+  this.setState({
+    formSubmitted:true
+  })
+
+}
+// ----
 
   handleSelect = e => {
-    debugger;
-    // console.log("ok something worked", e.target.value);
+    // debugger;
+    console.log("ok something worked", e.target.value);
+
     this.setState({
-      [e.target.name]: e.target.value,
-      formSubmitted: false
+      selectedGenre: e.target.value,
+      formSubmitted: false,
+
     });
   };
 
-  handleFormSubmit = e => {
+  handleFormSubmit =(e) => {
     // debugger;
-    e.preventDefault();
-    console.log(this.states);
+    // console.log(this.state);
+  e.preventDefault();
     this.setState({
       formSubmitted: true
     });
@@ -123,76 +152,66 @@ class SongsByGenre extends Component {
   render() {
     // console.log(this.state);
     const { selectedGenre, formSubmitted } = this.state;
-    const { songs } = this.props;
-    let songsFilter = this.state.songs;
+    // const { songs } = this.props;
+    // let songsFilter = this.state.songs;
 
-    if (formSubmitted && selectedGenre) {
-      debugger
-      songsFilter = songs.filter(song => {
-        return song.genre_name === selectedGenre;
-      });
-    }
 
-    let songsList = songsFilter.map((song, i) => {
+
+
+    let songsList = this.state.songs.map((song, i) => {
       let boundSongClick = this.favoriteASong.bind(this, song);
       let boundAddComment = this.handleAddComment.bind(this, song);
       let boundItemClick = this.onSongClick.bind(this, song);
 
-      if (song.title.toLowerCase()) {
-        return (
-          <div className="Body" key={i + 1}>
-            <div className="container">
-              <div className="li-box" key={i + 1}>
-                <ul>
-                  <li key={i + 1} id={i + 1} className="songBox">
-                    <div className="box-1">
-                      <img
-                        src={song.img_url}
-                        alt="thumbnail"
-                        className="thumbnail"
+      return (
+        <div className="Body" key={i + 1}>
+          <div className="container">
+            <div className="li-box" key={i + 1}>
+              <ul>
+                <li key={i + 1} id={i + 1} className="songBox">
+                  <div className="box-1">
+                    <img
+                      src={song.img_url}
+                      alt="thumbnail"
+                      className="thumbnail"
+                    />
+                  </div>
+                  <div className="box-2">
+                    <div>{song.title}</div>
+                    <div className="favorites">Favorites:{song.favorites}</div>
+                    <button onClick={boundSongClick} className="myButton">
+                      {this.state.toggle}
+                    </button>
+                  </div>
+                  <div className="box-3">
+                    Posted by:
+                    <Link to={"/profile/" + song.id}>{song.username}</Link>
+                  </div>
+                  <div className="box-4">{song.comment_body}</div>
+                  <div className="box-6">
+                    <form onSubmit={boundAddComment}>
+                      <input
+                        className="inputComment"
+                        key={song.key}
+                        id={i + 1}
+                        type="text"
+                        name="inputTextAddComment"
+                        value={this.state.inputTextAddComment}
+                        onChange={boundItemClick}
                       />
-                    </div>
-                    <div className="box-2">
-                      <div>{song.title}</div>
-                      <div className="favorites">
-                        Favorites:{song.favorites}
-                      </div>
-                      <button onClick={boundSongClick} className="myButton">
-                        {this.state.toggle}
-                      </button>
-                    </div>
-                    <div className="box-3">
-                      Posted by:
-                      <Link to={"/profile/" + song.id}>{song.username}</Link>
-                    </div>
-                    <div className="box-4">{song.comment_body}</div>
-                    <div className="box-6">
-                      <form onSubmit={boundAddComment}>
-                        <input
-                          className="inputComment"
-                          key={song.key}
-                          id={i + 1}
-                          type="text"
-                          name="inputTextAddComment"
-                          value={this.state.inputTextAddComment}
-                          onChange={boundItemClick}
-                        />
-                        <input
-                          className="submit-button"
-                          type="submit"
-                          value="Add Comment"
-                        />
-                      </form>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+                      <input
+                        className="submit-button"
+                        type="submit"
+                        value="Add Comment"
+                      />
+                    </form>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
-        );
-      } else {
-        return null;
-      }
+        </div>
+      );
     });
     return (
       <>
@@ -200,7 +219,9 @@ class SongsByGenre extends Component {
           genres={this.state.genres}
           handleSelect={this.handleSelect}
           handleFormSubmit={this.handleFormSubmit}
-          selectedGenre={this.selectedGenre}
+          handleSubmit ={this.handleSubmit}
+          handleChange ={this.handleChange}
+          selectedGenre={this.state.selectedGenre}
         />
         {songsList}
       </>
@@ -209,41 +230,3 @@ class SongsByGenre extends Component {
 }
 
 export default SongsByGenre;
-
-// if (this.state.formSubmitted && this.state.selectedGenre) {
-//   genreFilter ===
-//     this.props.songs.filter(song => {
-//       return song.genre === this.state.selectedGenre;
-//     });
-// }
-
-// populateSelectGenres = (e) => {
-//   debugger
-//   let genreList = this.state.genres.map((genre, i) => {
-//     return (
-//       <option key={i + 1} name="selectedGenre" value={genre.genre_name}>
-//         {" "}
-//         {genre.genre_name}
-//       </option>
-//     );
-//   });
-//   return (
-//     <div className="select-buttonArea">
-//       <form onSubmit={this.handleFormSubmit}>
-//         <select
-//           className="select"
-//           name="selectedGenre"
-//           onChange={this.handleSelect}
-//         >
-//           <option key="0" name="selectedGenre" value="">
-//             {" "}
-//           </option>
-//           {genreList}
-//         </select>
-//         <button type="submit" className="submit-button">
-//           Sort byGenre
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };

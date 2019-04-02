@@ -5,6 +5,8 @@ const GenreSelect = ({
   genres,
   handleSelect,
   handleFormSubmit,
+  handleSubmit,
+  handleChange,
   selectedGenre
 }) => {
   let genreList = genres.map(genre => {
@@ -17,21 +19,19 @@ const GenreSelect = ({
   });
   return (
     <div className="select-buttonArea">
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleSubmit} onChange={handleSelect} >
         <select
           className="select"
           name="selectedGenre"
-          onChange={handleSelect}
-          value={selectedGenre}
+
+          // value={selectedGenre}
         >
           <option key="0" name="selectedGenre" value="">
             {" "}
           </option>
           {genreList}
         </select>
-        <button type="submit" className="submit-button">
-          Sort byGenre
-        </button>
+        <input className="submit-button" value="Select" type="submit" />
       </form>
     </div>
   );
