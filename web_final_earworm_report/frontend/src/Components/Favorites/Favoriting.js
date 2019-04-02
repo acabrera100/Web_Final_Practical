@@ -2,10 +2,15 @@ import React, { Component } from "react";
 import axios from "axios";
 
 class Favorites extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-
+      toggle: "Favorite",
+      sampleUser: 1,
+      songs: [],
+      user_id: "",
+      song_id: "",
+      liked: false
     };
   }
   favoriteASong = (song, e) => {
@@ -14,7 +19,7 @@ class Favorites extends Component {
     this.setState({
       toggle: changeButtonPlaceholder
     });
-    e.preventDefault();
+    // e.preventDefault();
     console.log(song);
     if (!this.state.liked) {
       this.setState({
@@ -47,7 +52,14 @@ class Favorites extends Component {
     });
   };
   render() {
-    return <></>;
+    return (
+      <div>
+        <div className="favorites">Favorites:{this.props.eachFavorite}</div>
+        <button onClick={this.favoriteASong} className="myButton">
+          {this.state.toggle}
+        </button>
+      </div>
+    );
   }
 }
 export default Favorites;
