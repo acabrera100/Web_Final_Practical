@@ -101,63 +101,36 @@ class SongsByGenre extends Component {
         console.log(res.data);
       });
   };
-// ---
 
-filterSongs = async ()=>{
-  // debugger
-  const {selectedGenre,formSubmitted}=this.state
-  if (formSubmitted && selectedGenre){
-  await axios.get(`/songs/byGenre/${selectedGenre}`)
-      .then(thing=>{
+  filterSongs =  () => {
+    // debugger
+    const { selectedGenre, formSubmitted } = this.state;
+       axios.get(`/songs/byGenre/${selectedGenre}`).then(thing => {
         this.setState({
-          songs:thing.data.songs
-        })
-      })
-    } else {
-      return this.state.songs
-    }
-}
-
-handleSubmit = async(e)=>{
-  // debugger
-  await e.preventDefault()
-  await this.filterSongs()
-  this.setState({
-    formSubmitted:true
-  })
-
-}
-// ----
-
-  handleSelect = e => {
-    // debugger;
-    console.log("ok something worked", e.target.value);
-
-    this.setState({
-      selectedGenre: e.target.value,
-      formSubmitted: false,
-
-    });
+          songs: thing.data.songs
+        });
+      });
   };
 
-  handleFormSubmit =(e) => {
-    // debugger;
-    // console.log(this.state);
-  e.preventDefault();
+  handleSubmit =  e => {
+    // debugger
+     e.preventDefault();
+     this.filterSongs();
     this.setState({
       formSubmitted: true
     });
   };
 
+  handleSelect = e => {
+    // debugger;
+    console.log("ok something worked", e.target.value);
+    this.setState({
+      selectedGenre: e.target.value,
+      formSubmitted: false
+    });
+  };
+
   render() {
-    // console.log(this.state);
-    const { selectedGenre, formSubmitted } = this.state;
-    // const { songs } = this.props;
-    // let songsFilter = this.state.songs;
-
-
-
-
     let songsList = this.state.songs.map((song, i) => {
       let boundSongClick = this.favoriteASong.bind(this, song);
       let boundAddComment = this.handleAddComment.bind(this, song);
@@ -219,8 +192,8 @@ handleSubmit = async(e)=>{
           genres={this.state.genres}
           handleSelect={this.handleSelect}
           handleFormSubmit={this.handleFormSubmit}
-          handleSubmit ={this.handleSubmit}
-          handleChange ={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
           selectedGenre={this.state.selectedGenre}
         />
         {songsList}

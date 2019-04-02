@@ -4,9 +4,7 @@ import "../../CSS/SongsbyGenre.css";
 const GenreSelect = ({
   genres,
   handleSelect,
-  handleFormSubmit,
   handleSubmit,
-  handleChange,
   selectedGenre
 }) => {
   let genreList = genres.map(genre => {
@@ -19,12 +17,12 @@ const GenreSelect = ({
   });
   return (
     <div className="select-buttonArea">
-      <form onSubmit={handleSubmit} onChange={handleSelect} >
+      <form onSubmit={handleSubmit} >
         <select
           className="select"
           name="selectedGenre"
-
-          // value={selectedGenre}
+          onChange={handleSelect}
+          value={selectedGenre}
         >
           <option key="0" name="selectedGenre" value="">
             {" "}
