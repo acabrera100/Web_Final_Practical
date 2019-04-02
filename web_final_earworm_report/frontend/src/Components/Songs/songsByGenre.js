@@ -3,14 +3,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "../../CSS/SongsbyGenre.css";
 
-
-
 class SongsByGenre extends Component {
   constructor(props) {
     super(props);
     this.state = {
       genres: [],
-      songs:[],
+      songs: [],
       selectedGenre: "",
       formSubmitted: false,
       sampleUser: 1,
@@ -18,24 +16,31 @@ class SongsByGenre extends Component {
       song_id: "",
       liked: false,
       toggle: "Favorite",
-      inputTextAddComment: ""
+      inputTextAddComment: "",
+      genreOption: ""
     };
   }
 
   componentDidMount() {
-    axios.get("/genres").then(res => {
-      return this.setState({
-        genres: res.data.genres
-      });
-    });
+    this.getSongs();
+    this.getGenres();
+  }
+
+
+  getSongs = () => {
     axios.get("/songs").then(res => {
       return this.setState({
         songs: res.data.songs
       });
     });
-  }
-
-
+  };
+  getGenres = () => {
+    axios.get("/genres").then(res => {
+      return this.setState({
+        genres: res.data.genres
+      });
+    });
+  };
 
   favoriteASong = (song, e) => {
     let changeButtonPlaceholder =
@@ -97,26 +102,26 @@ class SongsByGenre extends Component {
       });
   };
 
-
   handleSelect = e => {
-  // debugger
+    debugger
     // console.log("ok something worked", e.target.value);
     this.setState({
       [e.target.name]: e.target.value,
-      formSubmitted:false
+      formSubmitted: false
     });
   };
 
   handleFormSubmit = e => {
-    // debugger
+    debugger
     e.preventDefault();
-    // console.log("hello");
+    console.log(this.states);
     this.setState({
       formSubmitted: true
     });
   };
 
-  populateSelectGenres = () => {
+  populateSelectGenres = (e) => {
+    debugger
     let genreList = this.state.genres.map((genre, i) => {
       return (
         <option key={i + 1} name="selectedGenre" value={genre.genre_name}>
@@ -126,23 +131,31 @@ class SongsByGenre extends Component {
       );
     });
     return (
-      <div className='select-buttonArea'>
+      <div className="select-buttonArea">
         <form onSubmit={this.handleFormSubmit}>
-          <select className='select'name="selectedGenre"  onChange={this.handleSelect}>
+          <select
+            className="select"
+            name="selectedGenre"
+            onChange={this.handleSelect}
+          >
             <option key="0" name="selectedGenre" value="">
               {" "}
             </option>
             {genreList}
           </select>
-          <button type="submit" className='submit-button'>Sort byGenre</button>
+          <button type="submit" className="submit-button">
+            Sort byGenre
+          </button>
         </form>
       </div>
     );
   };
 
+
+
   render() {
     // console.log(this.state);
-    const {selectedGenre,formSubmitted} =this.state
+    const { selectedGenre, formSubmitted } = this.state;
     const { songs } = this.props;
     let songsFilter = this.state.songs;
 
@@ -152,7 +165,6 @@ class SongsByGenre extends Component {
       });
     }
 
-
     let songsList = songsFilter.map((song, i) => {
       let boundSongClick = this.favoriteASong.bind(this, song);
       let boundAddComment = this.handleAddComment.bind(this, song);
@@ -160,48 +172,54 @@ class SongsByGenre extends Component {
 
       if (song.title.toLowerCase()) {
         return (
-          <div className='Body' key={i+1}>
-          <div className="container">
-          <div className="li-box" key={i+1}>
-          <ul>
-            <li key={i + 1} id={i + 1} className="songBox">
-              <div className="box-1">
-                <img src={song.img_url} alt="thumbnail" className="thumbnail" />
+          <div className="Body" key={i + 1}>
+            <div className="container">
+              <div className="li-box" key={i + 1}>
+                <ul>
+                  <li key={i + 1} id={i + 1} className="songBox">
+                    <div className="box-1">
+                      <img
+                        src={song.img_url}
+                        alt="thumbnail"
+                        className="thumbnail"
+                      />
+                    </div>
+                    <div className="box-2">
+                      <div>{song.title}</div>
+                      <div className="favorites">
+                        Favorites:{song.favorites}
+                      </div>
+                      <button onClick={boundSongClick} className="myButton">
+                        {this.state.toggle}
+                      </button>
+                    </div>
+                    <div className="box-3">
+                      Posted by:
+                      <Link to={"/profile/" + song.id}>{song.username}</Link>
+                    </div>
+                    <div className="box-4">{song.comment_body}</div>
+                    <div className="box-6">
+                      <form onSubmit={boundAddComment}>
+                        <input
+                          className="inputComment"
+                          key={song.key}
+                          id={i + 1}
+                          type="text"
+                          name="inputTextAddComment"
+                          value={this.state.inputTextAddComment}
+                          onChange={boundItemClick}
+                        />
+                        <input
+                          className="submit-button"
+                          type="submit"
+                          value="Add Comment"
+                        />
+                      </form>
+                    </div>
+                  </li>
+                </ul>
               </div>
-              <div className="box-2">
-                <div>{song.title}</div>
-                <div className="favorites">Favorites:{song.favorites}</div>
-                <button onClick={boundSongClick} className="myButton">
-                  {this.state.toggle}
-                </button>
-              </div>
-              <div className="box-3">
-                Posted by:
-                <Link to={"/profile/" + song.id}>{song.username}</Link>
-              </div>
-              <div className="box-4">{song.comment_body}</div>
-              <div className="box-6">
-                <form onSubmit={boundAddComment}>
-                  <input
-                    className="inputComment"
-                    key={song.key}
-                    id={i + 1}
-                    type="text"
-                    name="inputTextAddComment"
-                    value={this.state.inputTextAddComment}
-                    onChange={boundItemClick}
-                  />
-                  <input
-                    className="submit-button"
-                    type="submit"
-                    value="Add Comment"
-                  />
-                </form>
-              </div>
-            </li>
-            </ul>
-          </div>
-          </div>
+            </div>
           </div>
         );
       } else {
@@ -212,7 +230,6 @@ class SongsByGenre extends Component {
       <>
         {this.populateSelectGenres()}
         {songsList}
-
       </>
     );
   }
