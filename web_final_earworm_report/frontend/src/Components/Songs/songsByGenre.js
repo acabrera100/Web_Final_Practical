@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "../../CSS/SongsbyGenre.css";
 import GenreSelect from "./genreSelect.js";
+import CommentArea from "../Comments/commentArea.js";
 
 class SongsByGenre extends Component {
   constructor(props) {
@@ -102,20 +103,20 @@ class SongsByGenre extends Component {
       });
   };
 
-  filterSongs =  () => {
+  filterSongs = () => {
     // debugger
-    const { selectedGenre, formSubmitted } = this.state;
-       axios.get(`/songs/byGenre/${selectedGenre}`).then(thing => {
-        this.setState({
-          songs: thing.data.songs
-        });
+    const { selectedGenre } = this.state;
+    axios.get(`/songs/byGenre/${selectedGenre}`).then(thing => {
+      this.setState({
+        songs: thing.data.songs
       });
+    });
   };
 
-  handleSubmit =  e => {
+  handleSubmit = e => {
     // debugger
-     e.preventDefault();
-     this.filterSongs();
+    e.preventDefault();
+    this.filterSongs();
     this.setState({
       formSubmitted: true
     });
@@ -133,8 +134,8 @@ class SongsByGenre extends Component {
   render() {
     let songsList = this.state.songs.map((song, i) => {
       let boundSongClick = this.favoriteASong.bind(this, song);
-      let boundAddComment = this.handleAddComment.bind(this, song);
-      let boundItemClick = this.onSongClick.bind(this, song);
+      // let boundAddComment = this.handleAddComment.bind(this, song);
+      // let boundItemClick = this.onSongClick.bind(this, song);
 
       return (
         <div className="Body" key={i + 1}>
@@ -162,22 +163,7 @@ class SongsByGenre extends Component {
                   </div>
                   <div className="box-4">{song.comment_body}</div>
                   <div className="box-6">
-                    <form onSubmit={boundAddComment}>
-                      <input
-                        className="inputComment"
-                        key={song.key}
-                        id={i + 1}
-                        type="text"
-                        name="inputTextAddComment"
-                        value={this.state.inputTextAddComment}
-                        onChange={boundItemClick}
-                      />
-                      <input
-                        className="submit-button"
-                        type="submit"
-                        value="Add Comment"
-                      />
-                    </form>
+                    <CommentArea />
                   </div>
                 </li>
               </ul>
