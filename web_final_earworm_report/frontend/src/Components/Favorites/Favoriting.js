@@ -13,6 +13,13 @@ class Favorites extends Component {
       liked: false
     };
   }
+  onSongClick = (song, e) => {
+    console.log(song);
+    this.setState({
+      [e.target.name]: e.target.value,
+      id: ""
+    });
+  };
   favoriteASong = (song, e) => {
     let changeButtonPlaceholder =
       this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
