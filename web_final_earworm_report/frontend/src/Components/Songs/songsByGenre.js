@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "../../CSS/SongsbyGenre.css";
+import GenreSelect from "./genreSelect.js";
 
 class SongsByGenre extends Component {
   constructor(props) {
@@ -25,7 +26,6 @@ class SongsByGenre extends Component {
     this.getSongs();
     this.getGenres();
   }
-
 
   getSongs = () => {
     axios.get("/songs").then(res => {
@@ -103,7 +103,7 @@ class SongsByGenre extends Component {
   };
 
   handleSelect = e => {
-    debugger
+    debugger;
     // console.log("ok something worked", e.target.value);
     this.setState({
       [e.target.name]: e.target.value,
@@ -112,46 +112,13 @@ class SongsByGenre extends Component {
   };
 
   handleFormSubmit = e => {
-    debugger
+    // debugger;
     e.preventDefault();
     console.log(this.states);
     this.setState({
       formSubmitted: true
     });
   };
-
-  populateSelectGenres = (e) => {
-    debugger
-    let genreList = this.state.genres.map((genre, i) => {
-      return (
-        <option key={i + 1} name="selectedGenre" value={genre.genre_name}>
-          {" "}
-          {genre.genre_name}
-        </option>
-      );
-    });
-    return (
-      <div className="select-buttonArea">
-        <form onSubmit={this.handleFormSubmit}>
-          <select
-            className="select"
-            name="selectedGenre"
-            onChange={this.handleSelect}
-          >
-            <option key="0" name="selectedGenre" value="">
-              {" "}
-            </option>
-            {genreList}
-          </select>
-          <button type="submit" className="submit-button">
-            Sort byGenre
-          </button>
-        </form>
-      </div>
-    );
-  };
-
-
 
   render() {
     // console.log(this.state);
@@ -160,6 +127,7 @@ class SongsByGenre extends Component {
     let songsFilter = this.state.songs;
 
     if (formSubmitted && selectedGenre) {
+      debugger
       songsFilter = songs.filter(song => {
         return song.genre_name === selectedGenre;
       });
@@ -228,7 +196,12 @@ class SongsByGenre extends Component {
     });
     return (
       <>
-        {this.populateSelectGenres()}
+        <GenreSelect
+          genres={this.state.genres}
+          handleSelect={this.handleSelect}
+          handleFormSubmit={this.handleFormSubmit}
+          selectedGenre={this.selectedGenre}
+        />
         {songsList}
       </>
     );
@@ -243,3 +216,34 @@ export default SongsByGenre;
 //       return song.genre === this.state.selectedGenre;
 //     });
 // }
+
+// populateSelectGenres = (e) => {
+//   debugger
+//   let genreList = this.state.genres.map((genre, i) => {
+//     return (
+//       <option key={i + 1} name="selectedGenre" value={genre.genre_name}>
+//         {" "}
+//         {genre.genre_name}
+//       </option>
+//     );
+//   });
+//   return (
+//     <div className="select-buttonArea">
+//       <form onSubmit={this.handleFormSubmit}>
+//         <select
+//           className="select"
+//           name="selectedGenre"
+//           onChange={this.handleSelect}
+//         >
+//           <option key="0" name="selectedGenre" value="">
+//             {" "}
+//           </option>
+//           {genreList}
+//         </select>
+//         <button type="submit" className="submit-button">
+//           Sort byGenre
+//         </button>
+//       </form>
+//     </div>
+//   );
+// };
