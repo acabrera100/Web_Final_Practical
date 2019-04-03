@@ -24,7 +24,7 @@ this.commentInputChange = this.commentInputChange.bind(this)
   };
 
   commentInputChange = ( e) => {
-    console.log('something');
+    // console.log('something');
     this.setState({
       [e.target.name]: e.target.value,
       id: ""
@@ -34,7 +34,7 @@ this.commentInputChange = this.commentInputChange.bind(this)
 
     return (
       <div className="box-6">
-        <form onSubmit={this.props.handleAddComment}>
+        <form onSubmit={this.handleAddComment}>
           <input
             className="inputComment"
             key={this.props.key}
