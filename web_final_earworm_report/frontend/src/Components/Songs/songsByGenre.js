@@ -94,13 +94,13 @@ class SongsByGenre extends Component {
                   </div>
                   <div className="box-2">
                     <div>{song.title}</div>
-                    <Favorites eachFavorite={song.favorites} />
+                    <Favorites eachFavorite={song.favorites} songID={song.id} />
                   </div>
                   <div className="box-3">
                     Posted by:
                     <Link to={"/profile/" + song.id}>{song.username}</Link>
                   </div>
-                  <div className="box-4">{song.comment_body}</div>
+                  <div className="box-4">{song.comments}</div>
                   <div className="box-6">
                     <CommentArea />
                   </div>

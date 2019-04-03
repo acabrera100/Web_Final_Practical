@@ -72,6 +72,9 @@
   position: relative;
   bottom: 37px;
   left: 24px;
+  height: auto;
+  overflow: scroll;
+  word-wrap: normal;
 }
 .box-6 {
   display: flex;
@@ -79,8 +82,10 @@
   height: 50px;
   width: 500px;
   position: relative;
-  bottom: 43px;
-  left: 330px;
+  bottom: 20px;
+  left: 170px;
+
+
 }
 
 .inputComment {

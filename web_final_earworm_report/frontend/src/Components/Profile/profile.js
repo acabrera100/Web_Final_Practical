@@ -18,6 +18,7 @@ class Profile extends Component {
       songInputText: "",
       img_urlInputText: "",
       artistInputText:'',
+      genreInputText:'',
       selectedGenreId: parseInt("")
     };
   }
@@ -61,30 +62,6 @@ class Profile extends Component {
       });
   };
 
-  populateSelectGenres = () => {
-    let genreList = this.state.genres.map((genre, i) => {
-      return (
-        <option key={i + 1} name="selectedGenreId" value={genre.id}>
-          {" "}
-          {genre.genre_name}
-        </option>
-      );
-    });
-    return (
-      <div className="select-buttonArea">
-        <select
-          className="select"
-          name="selectedGenre"
-          onChange={this.handleSelect}
-        >
-          <option key="0" name="selectedGenreId" value="">
-            {" "}
-          </option>
-          {genreList}
-        </select>
-      </div>
-    );
-  };
   commentsByUser = () => {
     if (this.state.songsByUser.id === this.commentsByUser.songid) {
       let commentsPostedByUser = this.state.commentsByUser.map((comment, i) => {
@@ -100,6 +77,7 @@ class Profile extends Component {
     }
   };
   songsByUser = () => {
+  
     let songsPostedByUser = this.state.songsByUser.map((song, i) => {
       return (
         <li key={i + 1}>
@@ -166,7 +144,7 @@ class Profile extends Component {
             </div>
             <div className="submit-form">
               <form onSubmit={this.handleAddSong}>
-                {this.populateSelectGenres()}
+
                 <input
                   className="inputs"
                   type="text"
@@ -193,6 +171,14 @@ class Profile extends Component {
                   placeholder="Artist"
                   onChange={this.handleSelect}
                 />
+                <input
+                  className="inputs"
+                  type="text"
+                  value={this.state.genreInputText}
+                  name='genreInputText'
+                  placeholder="Genre"
+                  onChange={this.handleSelect}
+                />
                 <button className="submitbtn" type="submit">
                   Submit
                 </button>
@@ -213,6 +199,7 @@ class Profile extends Component {
             Favorites
           </button>
           <h4>Favorite Songs from this User </h4>
+
         </div>
       );
     }
