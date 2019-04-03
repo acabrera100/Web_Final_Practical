@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+// import SongsDisplay from './songsDisplay.js'
+import Favorites from "../Favorites/Favoriting.js";
+import CommentArea from "../Comments/commentArea.js";
 
 class SongByPopularity extends Component {
   constructor() {
@@ -23,150 +26,47 @@ class SongByPopularity extends Component {
     });
   }
 
-  favoriteASong = (song, e) => {
-    let changeButtonPlaceholder =
-      this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
-    this.setState({
-      toggle: changeButtonPlaceholder
-    });
-    e.preventDefault();
-    console.log(song);
-    if (!this.state.liked) {
-      this.setState({
-        liked: true
-      });
-      axios
-        .post(`/favorites`, {
-          user_id: this.state.sampleUser,
-          song_id: song.id
-        })
-        .then(res => {
-          console.log(res);
-          console.log(res.data);
-        });
-    } else {
-      this.setState({
-        liked: false
-      });
-      axios.delete(`/favorites/${song.id}`).then(res => {
-        console.log(res.data);
-      });
-    }
-  };
-  toggleFavoriteButton = () => {
-    let changeButtonPlaceholder =
-      this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
-    this.setState({
-      toggle: changeButtonPlaceholder
-    });
-  };
-
-  onSongClick = (song, e) => {
-    console.log(song);
-    this.setState({
-      [e.target.name]: e.target.value,
-      id: ""
-    });
-  };
-
-  handleAddComment = (song, e) => {
-    // e.preventDefault();
-    axios
-      .post(`/comments`, {
-        comment_body: this.state.inputTextAddComment,
-        user_id: this.state.sampleUser,
-        song_id: song.id
-      })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      });
-  };
-
   render() {
     let songsList = this.state.songs.map((song, i) => {
-      let boundSongClick = this.favoriteASong.bind(this, song);
-      let boundAddComment = this.handleAddComment.bind(this, song);
-      let boundItemClick = this.onSongClick.bind(this, song);
-
-      return (
-        <div className="li-box" key={i + 1}>
-          <li key={i + 1} id={i + 1} className="songBox">
-            <div className="box-1">
-              <img src={song.img_url} alt="thumbnail" className="thumbnail" />
-            </div>
-            <div className="box-2">
-              <div>{song.title}</div>
-              <div className="favorites">Favorites:{song.favorites}</div>
-              <button onClick={boundSongClick} className="myButton">
-                {this.state.toggle}
-              </button>
-            </div>
-            <div className="box-3">
-              Posted by:
-              <Link to={"/profile/" + song.id}>{song.username}</Link>
-            </div>
-            <div className="box-4">{song.comment_body}</div>
-            <div className="box-6">
-              <form onSubmit={boundAddComment}>
-                <input
-                  className="inputComment"
+      if (song.title.toLowerCase()) {
+        return (
+          <div className="li-box" key={i + 1}>
+            <li key={i + 1} id={i + 1} className="songBox">
+              <div className="box-1">
+                <img src={song.img_url} alt="thumbnail" className="thumbnail" />
+              </div>
+              <div className="box-2">
+                <div>{song.title}</div>
+                <Favorites eachFavorite={song.favorites} songID={song.id} />
+              </div>
+              <div className="box-3">
+                Posted by:
+                <Link to={"/profile/" + song.id}>{song.username}</Link>
+              </div>
+              <div className="box-4">{song.comment_body}</div>
+              <div className="box-6">
+                <CommentArea
+                  songs={song}
                   key={song.key}
                   id={i + 1}
-                  type="text"
-                  name="inputTextAddComment"
-                  value={this.state.inputTextAddComment}
-                  onChange={boundItemClick}
+                  songid={song.id}
                 />
-                <input
-                  className="submit-button"
-                  type="submit"
-                  value="Add Comment"
-                />
-              </form>
-            </div>
-          </li>
-        </div>
-      );
+              </div>
+            </li>
+          </div>
+        );
+      } else {
+        return null;
+      }
     });
-    return <>{songsList}</>;
+
+    return (
+      <>
+        {songsList}
+        {this.commentArray}
+      </>
+    );
   }
 }
+
 export default SongByPopularity;
-
-//       {songsList}
-
-//   render(){
-// let songsList =  this.state.songsByPop.map((song,i) => {
-//     if (song.title.toLowerCase()) {
-//       return (
-//         <li key={i + 1}>
-//           Title: {song.title}
-//           <br />
-//           Artist: {song.artist}
-//           <br />
-//           <img src={song.img_url} alt="song" />
-//           <br />
-//           Posted by:
-//           <Link to={"/profile/" + song.id}>{song.username}</Link>
-//           <br />
-//           {song.favorites}
-//           <button onClick={this.favorASong}>Favorite</button>
-//           <form>
-//             <input type="text" />
-//             <input type="submit" />
-//           </form>
-//         </li>
-//       );
-//     } else {
-//       return null;
-//     }
-//   });
-//
-//       return(
-//         <>
-//         <SongsDisplay/>
-//         </>
-//       )
-//     }
-//   }

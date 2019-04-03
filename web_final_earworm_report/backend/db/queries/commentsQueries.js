@@ -64,7 +64,9 @@ const createComment = (req, res, next) => {
       res.status(200).json({
         status: "success",
         message: "New comment has been added to a song"
-      });
+      })
+    }).then(()=>{
+      console.log("ENTERED")
     })
     .catch(err => {
       return next(err);

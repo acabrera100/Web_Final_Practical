@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import "../../CSS/SongsDisplay.css";
+import CommentArea from "../Comments/commentArea.js";
+import Favorites from "../Favorites/Favoriting.js";
+// import CommentDisplay from '../Comments/displayComments.js'
 
 class SongsDisplay extends Component {
   constructor(props) {
@@ -9,7 +12,6 @@ class SongsDisplay extends Component {
     this.state = {
       sampleUser: 1,
       songs: [],
-
       user_id: "",
       song_id: "",
       liked: false,
@@ -17,52 +19,13 @@ class SongsDisplay extends Component {
       inputTextAddComment: ""
     };
   }
-  componentDidMount() {
-    axios.get("/songs").then(res => {
-      return this.setState({
-        songs: res.data.songs
-      });
-    });
-  }
-
-  favoriteASong = (song, e) => {
-    let changeButtonPlaceholder =
-      this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
-    this.setState({
-      toggle: changeButtonPlaceholder
-    });
-    e.preventDefault();
-    console.log(song);
-    if (!this.state.liked) {
-      this.setState({
-        liked: true,
-        likedValue: 0
-      });
-      axios
-        .post(`/favorites`, {
-          user_id: this.state.sampleUser,
-          song_id: song.id
-        })
-        .then(res => {
-          console.log(res);
-          console.log(res.data);
-        });
-    } else {
-      this.setState({
-        liked: false
-      });
-      axios.delete(`/favorites/${song.id}`).then(res => {
-        console.log(res.data);
-      });
-    }
-  };
-  toggleFavoriteButton = () => {
-    let changeButtonPlaceholder =
-      this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
-    this.setState({
-      toggle: changeButtonPlaceholder
-    });
-  };
+  // componentDidMount() {
+  //   axios.get("/songs").then(res => {
+  //     return this.setState({
+  //       songs: res.data.songs
+  //     });
+  //   });
+  // }
 
   onSongClick = (song, e) => {
     console.log(song);
@@ -72,40 +35,9 @@ class SongsDisplay extends Component {
     });
   };
 
-  handleAddComment = (song, e) => {
-    // e.preventDefault();
-    axios
-      .post(`/comments`, {
-        comment_body: this.state.inputTextAddComment,
-        user_id: this.state.sampleUser,
-        song_id: song.id
-      })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      });
-  };
-  // create an array of objects where i extrapulate the comments from each song, and then use this variable
-  // I switched to this, thinking it will render all on one, not seperate li's with one comment for each.
-  // renderComments = () => {
-  //   let commentsArray = [];
-  //   let comments = this.props.songs.forEach(comment => {
-  //     // comment.comment_body.push(commentsArray);
-  //     if (comment..length > 1) {
-  //       return comment.comment_body;
-  //     } else {
-  //       return null;
-  //     }
-  //   });
-  //   return { comments };
-  // };
   render() {
     // console.log(this.renderComments());
     let songsList = this.props.songs.map((song, i) => {
-      let boundSongClick = this.favoriteASong.bind(this, song);
-      let boundAddComment = this.handleAddComment.bind(this, song);
-      let boundItemClick = this.onSongClick.bind(this, song);
-
       if (song.title.toLowerCase()) {
         return (
           <div className="li-box" key={i + 1}>
@@ -115,10 +47,7 @@ class SongsDisplay extends Component {
               </div>
               <div className="box-2">
                 <div>{song.title}</div>
-                <div className="favorites">Favorites:{song.favorites}</div>
-                <button onClick={boundSongClick} className="myButton">
-                  {this.state.toggle}
-                </button>
+                <Favorites eachFavorite={song.favorites}  songID={song.id} />
               </div>
               <div className="box-3">
                 Posted by:
@@ -126,22 +55,12 @@ class SongsDisplay extends Component {
               </div>
               <div className="box-4">{song.comment_body}</div>
               <div className="box-6">
-                <form onSubmit={boundAddComment}>
-                  <input
-                    className="inputComment"
-                    key={song.key}
-                    id={i + 1}
-                    type="text"
-                    name="inputTextAddComment"
-                    value={this.state.inputTextAddComment}
-                    onChange={boundItemClick}
-                  />
-                  <input
-                    className="submit-button"
-                    type="submit"
-                    value="Add Comment"
-                  />
-                </form>
+                <CommentArea
+                  songs={song}
+                  key={song.key}
+                  id={i + 1}
+                  songid={song.id}
+                />
               </div>
             </li>
           </div>
@@ -153,15 +72,11 @@ class SongsDisplay extends Component {
     return (
       <>
         {songsList}
-        {this.commentArray}
+
       </>
     );
   }
 }
 export default SongsDisplay;
-// line 120
-// {this.renderSongs()}
 
-//
-// if favorite is true set it to decrease in value by 1.
-// This is to show on the front end
+// <div className="box-4">{song.comment_body}</div>
