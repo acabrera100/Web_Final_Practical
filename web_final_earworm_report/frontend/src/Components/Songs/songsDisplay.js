@@ -46,7 +46,7 @@ class SongsDisplay extends Component {
               </div>
               <div className="box-2">
                 <div>{song.title}</div>
-                <Favorites eachFavorite={song.favorites} />
+                <Favorites eachFavorite={song.favorites}  songID={song.id} />
               </div>
               <div className="box-3">
                 Posted by:

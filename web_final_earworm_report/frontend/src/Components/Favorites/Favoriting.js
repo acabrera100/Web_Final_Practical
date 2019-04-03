@@ -13,7 +13,7 @@ class Favorites extends Component {
     this.favoriteASong = this.favoriteASong.bind(this);
   }
 
-  favoriteASong = song => {
+  favoriteASong = () => {
     // debugger
     // console.log("attempt to favorite");
     let changeButtonPlaceholder =
@@ -22,7 +22,7 @@ class Favorites extends Component {
       toggle: changeButtonPlaceholder
     });
     // e.preventDefault();
-    console.log(song);
+    // console.log(song);
     if (!this.state.liked) {
       this.setState({
         liked: true
@@ -30,7 +30,7 @@ class Favorites extends Component {
       axios
         .post(`/favorites`, {
           user_id: this.state.sampleUser,
-          song_id: 1
+          song_id: this.props.songID
         })
         .then(res => {
           console.log(res);
@@ -40,7 +40,7 @@ class Favorites extends Component {
       this.setState({
         liked: false
       });
-      axios.delete(`/favorites/${song.id}`).then(res => {
+      axios.delete(`/favorites/${this.props.songID}`).then(res => {
         console.log(res.data);
       });
     }

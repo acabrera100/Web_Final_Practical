@@ -37,7 +37,7 @@ class SongByPopularity extends Component {
               </div>
               <div className="box-2">
                 <div>{song.title}</div>
-                <Favorites eachFavorite={song.favorites} songID={song.song_id} />
+                <Favorites eachFavorite={song.favorites} songID={song.id} />
               </div>
               <div className="box-3">
                 Posted by:
