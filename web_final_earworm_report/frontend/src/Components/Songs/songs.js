@@ -6,6 +6,7 @@ import SongsByGenre from "./songsByGenre.js";
 import SingleSong from "./singleSong.js";
 import SongsDisplay from "./songsDisplay.js";
 import "../../CSS/AllSongs.css";
+
 class Songs extends Component {
   constructor() {
     super();

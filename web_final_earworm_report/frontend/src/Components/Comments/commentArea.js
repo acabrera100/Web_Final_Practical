@@ -4,18 +4,20 @@ class CommentArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputTextAddComment: ""
-
+      inputTextAddComment: "",
+      sampleUser:1,
+      songId: this.props.songid
     };
-this.commentInputChange = this.commentInputChange.bind(this)
+    this.handleChange = this.handleChange.bind(this);
   }
-  handleAddComment = (song, e) => {
+  handleAddComment = ( e) => {
     // e.preventDefault();
+    console.log(this.state);
     axios
       .post(`/comments`, {
         comment_body: this.state.inputTextAddComment,
-        user_id: this.props.sampleUser,
-        song_id: song.id
+        user_id: this.state.sampleUser,
+        song_id: this.state.songId
       })
       .then(res => {
         console.log(res);
@@ -23,18 +25,20 @@ this.commentInputChange = this.commentInputChange.bind(this)
       });
   };
 
-  commentInputChange = ( e) => {
-    // console.log('something');
+  handleChange = ( e) => {
+    console.log(this.state);
     this.setState({
       [e.target.name]: e.target.value,
-      id: ""
+      id: ''
     });
   };
-  render() {
+onClick=()=>{
 
+}
+  render() {
     return (
       <div className="box-6">
-        <form onSubmit={this.handleAddComment}>
+        <form onSubmit={this.handleAddComment} >
           <input
             className="inputComment"
             key={this.props.key}
@@ -42,8 +46,7 @@ this.commentInputChange = this.commentInputChange.bind(this)
             type="text"
             name="inputTextAddComment"
             value={this.state.inputTextAddComment}
-            onChange={this.commentInputChange
-        }
+            onChange={this.handleChange}
           />
           <input className="submit-button" type="submit" value="Add Comment" />
         </form>

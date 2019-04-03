@@ -7,25 +7,15 @@ class Favorites extends Component {
     this.state = {
       toggle: "Favorite",
       sampleUser: 1,
-      songs: [],
       user_id: "",
-      song_id: "",
       liked: false
     };
+    this.favoriteASong = this.favoriteASong.bind(this);
   }
 
-  //
-  // onSongClick = (song, e) => {
-  //   console.log('hello');
-  //   this.setState({
-  //     [e.target.name]: e.target.value,
-  //     id: ""
-  //   });
-  // };
-
-
-  favoriteASong = (song) => {
-    console.log("heyheyhey");
+  favoriteASong = song => {
+    // debugger
+    // console.log("attempt to favorite");
     let changeButtonPlaceholder =
       this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
     this.setState({
@@ -40,7 +30,7 @@ class Favorites extends Component {
       axios
         .post(`/favorites`, {
           user_id: this.state.sampleUser,
-          song_id: song.id
+          song_id: 1
         })
         .then(res => {
           console.log(res);
@@ -63,7 +53,6 @@ class Favorites extends Component {
       toggle: changeButtonPlaceholder
     });
   };
-
 
   render() {
     return (

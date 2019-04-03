@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import "../../CSS/SongsDisplay.css";
 import CommentArea from "../Comments/commentArea.js";
 import Favorites from "../Favorites/Favoriting.js";
@@ -18,13 +18,13 @@ class SongsDisplay extends Component {
       inputTextAddComment: ""
     };
   }
-  componentDidMount() {
-    axios.get("/songs").then(res => {
-      return this.setState({
-        songs: res.data.songs
-      });
-    });
-  }
+  // componentDidMount() {
+  //   axios.get("/songs").then(res => {
+  //     return this.setState({
+  //       songs: res.data.songs
+  //     });
+  //   });
+  // }
 
   onSongClick = (song, e) => {
     console.log(song);
@@ -71,9 +71,11 @@ class SongsDisplay extends Component {
     return (
       <>
         {songsList}
-        {this.commentArray}
+
       </>
     );
   }
 }
 export default SongsDisplay;
+
+// <div className="box-4">{song.comment_body}</div>
