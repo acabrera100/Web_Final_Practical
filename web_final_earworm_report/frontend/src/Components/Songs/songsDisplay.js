@@ -19,7 +19,7 @@ class SongsDisplay extends Component {
       inputTextAddComment: ""
     };
   }
-  
+
   // componentDidMount() {
   //   axios.get("/songs").then(res => {
   //     return this.setState({
@@ -54,7 +54,7 @@ class SongsDisplay extends Component {
                 Posted by:
                 <Link to={"/profile/" + song.id}>{song.username}</Link>
               </div>
-              <div className="box-4">{song.comment_body}</div>
+              <div className="box-4">{song.comments}</div>
               <div className="box-6">
                 <CommentArea
                   songs={song}

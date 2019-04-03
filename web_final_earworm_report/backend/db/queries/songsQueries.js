@@ -2,7 +2,7 @@ const { db } = require("./index.js");
 
 const getAllSongs = (req, res, next) => {
   db.any(
-  "SELECT genre_name,comments.id AS com,songs.id,title,artist,img_url,username,date_added,comment_body ,COUNT(favorites.song_id)AS Favorites FROM songs JOIN favorites ON favorites.song_id = songs.id JOIN users ON songs.user_id = users.id JOIN comments ON songs.id = comments.song_id JOIN genres ON songs.genre_id = genres.id WHERE songs.id = comments.song_id GROUP BY genre_name,comments.id,songs.id,title,artist,comment_body,username,img_url, date_added ORDER BY DATE(date_added) DESC"
+  "SELECT title,ARRAY_AGG(DISTINCT comments.comment_body) AS Comments,COUNT(favorites.song_id)AS Favorites,songs.id,artist,img_url,username FROM songs FULL JOIN users ON songs.user_id = users.id FULL JOIN comments ON comments.song_id = songs.id FULL JOIN favorites ON favorites.song_id = songs.id GROUP BY title,songs.id,artist,img_url,username"
 
   )
     .then(data => {
@@ -129,3 +129,17 @@ module.exports = {
   createSong,
   deleteSong
 };
+// 1)
+// "SELECT genre_name,comments.id AS com,songs.id,title,artist,img_url,username,date_added,comment_body ,COUNT(favorites.song_id)AS Favorites FROM songs JOIN favorites ON favorites.song_id = songs.id JOIN users ON songs.user_id = users.id JOIN comments ON songs.id = comments.song_id JOIN genres ON songs.genre_id = genres.id WHERE songs.id = comments.song_id GROUP BY genre_name,comments.id,songs.id,title,artist,comment_body,username,img_url, date_added ORDER BY DATE(date_added) DESC"
+
+
+// 2)
+// SELECT title,ARRAY_AGG(DISTINCT comments.comment_body) AS Comments,COUNT(favorites.song_id)AS Favorites,songs.id,artist,img_url,username
+// FROM songs
+// FULL JOIN users
+// ON songs.user_id = users.id
+// FULL JOIN comments
+// ON comments.song_id = songs.id
+// FULL JOIN favorites
+// ON favorites.song_id = songs.id
+// GROUP BY title,songs.id,artist,img_url,username
