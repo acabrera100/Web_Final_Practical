@@ -6,7 +6,6 @@ import GenreSelect from "./genreSelect.js";
 import CommentArea from "../Comments/commentArea.js";
 import Favorites from "../Favorites/Favoriting.js";
 
-
 class SongsByGenre extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +20,8 @@ class SongsByGenre extends Component {
       liked: false,
       toggle: "Favorite",
       inputTextAddComment: "",
-      genreOption: ""
+      genreOption: "",
+      filteredComments:[]
     };
   }
 
@@ -29,6 +29,9 @@ class SongsByGenre extends Component {
     this.getSongs();
     this.getGenres();
   }
+  // componentDidUpdate(){
+  //   this.getSongs()
+  // }
 
   getSongs = () => {
     axios.get("/songs").then(res => {
@@ -45,67 +48,8 @@ class SongsByGenre extends Component {
     });
   };
 
-  // favoriteASong = (song, e) => {
-  //   let changeButtonPlaceholder =
-  //     this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
-  //   this.setState({
-  //     toggle: changeButtonPlaceholder
-  //   });
-  //   e.preventDefault();
-  //   // console.log(song);
-  //   if (!this.state.liked) {
-  //     this.setState({
-  //       liked: true
-  //     });
-  //     axios
-  //       .post(`/favorites`, {
-  //         user_id: this.state.sampleUser,
-  //         song_id: song.id
-  //       })
-  //       .then(res => {
-  //         console.log(res);
-  //         console.log(res.data);
-  //       });
-  //   } else {
-  //     this.setState({
-  //       liked: false
-  //     });
-  //     axios.delete(`/favorites/${song.id}`).then(res => {
-  //       console.log(res.data);
-  //     });
-  //   }
-  // };
-  // toggleFavoriteButton = () => {
-  //   let changeButtonPlaceholder =
-  //     this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
-  //   this.setState({
-  //     toggle: changeButtonPlaceholder
-  //   });
-  // };
-  //
-  // onSongClick = (song, e) => {
-  //   console.log(song);
-  //   this.setState({
-  //     [e.target.name]: e.target.value,
-  //     id: ""
-  //   });
-  // };
-  //
-  // handleAddComment = (song, e) => {
-  //   // e.preventDefault();
-  //   axios
-  //     .post(`/comments`, {
-  //       comment_body: this.state.inputTextAddComment,
-  //       user_id: this.state.sampleUser,
-  //       song_id: song.id
-  //     })
-  //     .then(res => {
-  //       console.log(res);
-  //       console.log(res.data);
-  //     });
-  // };
-
   filterSongs = () => {
+    console.log(this.state);
     // debugger
     const { selectedGenre } = this.state;
     axios.get(`/songs/byGenre/${selectedGenre}`).then(thing => {
@@ -135,10 +79,6 @@ class SongsByGenre extends Component {
 
   render() {
     let songsList = this.state.songs.map((song, i) => {
-      // let boundSongClick = this.favoriteASong.bind(this, song);
-      // let boundAddComment = this.handleAddComment.bind(this, song);
-      // let boundItemClick = this.onSongClick.bind(this, song);
-
       return (
         <div className="Body" key={i + 1}>
           <div className="container">
@@ -154,8 +94,7 @@ class SongsByGenre extends Component {
                   </div>
                   <div className="box-2">
                     <div>{song.title}</div>
-                      <Favorites eachFavorite={song.favorites} />
-
+                    <Favorites eachFavorite={song.favorites} />
                   </div>
                   <div className="box-3">
                     Posted by:
