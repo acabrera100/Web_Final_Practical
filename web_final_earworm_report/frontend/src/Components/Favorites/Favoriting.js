@@ -13,14 +13,19 @@ class Favorites extends Component {
       liked: false
     };
   }
-  onSongClick = (song, e) => {
-    console.log(song);
-    this.setState({
-      [e.target.name]: e.target.value,
-      id: ""
-    });
-  };
-  favoriteASong = (song, e) => {
+
+  //
+  // onSongClick = (song, e) => {
+  //   console.log('hello');
+  //   this.setState({
+  //     [e.target.name]: e.target.value,
+  //     id: ""
+  //   });
+  // };
+
+
+  favoriteASong = (song) => {
+    console.log("heyheyhey");
     let changeButtonPlaceholder =
       this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
     this.setState({
@@ -30,8 +35,7 @@ class Favorites extends Component {
     console.log(song);
     if (!this.state.liked) {
       this.setState({
-        liked: true,
-        likedValue: 0
+        liked: true
       });
       axios
         .post(`/favorites`, {
@@ -51,6 +55,7 @@ class Favorites extends Component {
       });
     }
   };
+
   toggleFavoriteButton = () => {
     let changeButtonPlaceholder =
       this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
@@ -58,6 +63,8 @@ class Favorites extends Component {
       toggle: changeButtonPlaceholder
     });
   };
+
+
   render() {
     return (
       <div>

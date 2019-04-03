@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import "../../CSS/SongsbyGenre.css";
 import GenreSelect from "./genreSelect.js";
 import CommentArea from "../Comments/commentArea.js";
+import Favorites from "../Favorites/Favoriting.js";
+
 
 class SongsByGenre extends Component {
   constructor(props) {
@@ -133,7 +135,7 @@ class SongsByGenre extends Component {
 
   render() {
     let songsList = this.state.songs.map((song, i) => {
-      let boundSongClick = this.favoriteASong.bind(this, song);
+      // let boundSongClick = this.favoriteASong.bind(this, song);
       // let boundAddComment = this.handleAddComment.bind(this, song);
       // let boundItemClick = this.onSongClick.bind(this, song);
 
@@ -152,10 +154,8 @@ class SongsByGenre extends Component {
                   </div>
                   <div className="box-2">
                     <div>{song.title}</div>
-                    <div className="favorites">Favorites:{song.favorites}</div>
-                    <button onClick={boundSongClick} className="myButton">
-                      {this.state.toggle}
-                    </button>
+                      <Favorites eachFavorite={song.favorites} />
+
                   </div>
                   <div className="box-3">
                     Posted by:

@@ -26,8 +26,6 @@ class SongsDisplay extends Component {
     });
   }
 
-
-
   onSongClick = (song, e) => {
     console.log(song);
     this.setState({
@@ -35,7 +33,6 @@ class SongsDisplay extends Component {
       id: ""
     });
   };
-
 
   render() {
     // console.log(this.renderComments());

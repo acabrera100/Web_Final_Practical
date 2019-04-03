@@ -3,14 +3,18 @@ import axios from "axios";
 class CommentArea extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      inputTextAddComment: ""
+
+    };
+this.commentInputChange = this.commentInputChange.bind(this)
   }
   handleAddComment = (song, e) => {
     // e.preventDefault();
     axios
       .post(`/comments`, {
         comment_body: this.state.inputTextAddComment,
-        user_id: this.state.sampleUser,
+        user_id: this.props.sampleUser,
         song_id: song.id
       })
       .then(res => {
@@ -19,17 +23,18 @@ class CommentArea extends Component {
       });
   };
 
-  onSongClick = (song, e) => {
-    console.log(song);
+  commentInputChange = ( e) => {
+    console.log('something');
     this.setState({
       [e.target.name]: e.target.value,
       id: ""
     });
   };
   render() {
+
     return (
       <div className="box-6">
-        <form onSubmit={this.handleAddComment}>
+        <form onSubmit={this.props.handleAddComment}>
           <input
             className="inputComment"
             key={this.props.key}
@@ -37,7 +42,8 @@ class CommentArea extends Component {
             type="text"
             name="inputTextAddComment"
             value={this.state.inputTextAddComment}
-            onChange={this.onSongClick}
+            onChange={this.commentInputChange
+        }
           />
           <input className="submit-button" type="submit" value="Add Comment" />
         </form>
