@@ -13,5 +13,5 @@ router.get("/", getAllFavorites);
 router.get("/byTitle/:id", getAllFavoritesSpecificSong);
 router.get("/byUser/:id", getAllFavoritesByUser);
 router.post("/", createFavoriteOnSong);
-router.delete("/:id", deleteSingleFavorite);
+router.delete("/:id/:user", deleteSingleFavorite);
 module.exports = router;

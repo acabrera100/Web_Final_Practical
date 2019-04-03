@@ -16,22 +16,25 @@ class Songs extends Component {
       formInputText: "",
       toggle: "UnFavorite",
       visible: "false",
-      searched:false
+      searched: false
     };
   }
 
   componentDidMount() {
-    axios.get("/songs").then(res => {
-      return this.setState({
-        songs: res.data.songs
-      });
-    });
+    this.getSongs();
     axios.get("/comments").then(res => {
       return this.setState({
         comments: res.data.comments
       });
     });
   }
+  getSongs = () => {
+    axios.get("/songs").then(res => {
+      return this.setState({
+        songs: res.data.songs
+      });
+    });
+  };
 
   handleChange = e => {
     this.setState({ formInputText: e.target.value });
@@ -39,32 +42,32 @@ class Songs extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-  if(this.state.searched === true ){
-    axios.get("/songs").then(res => {
-      return this.setState({
-        songs: res.data.songs
+    if (this.state.searched === true) {
+      axios.get("/songs").then(res => {
+        return this.setState({
+          songs: res.data.songs
+        });
       });
-    });
-    this.setState({
-      searched:false,
-    })
-  }else {
-    const filteredsongs = this.state.songs.filter(el => {
-      return el.title
-        .toLowerCase()
-        .includes(this.state.formInputText.toLowerCase());
-    });
+      this.setState({
+        searched: false
+      });
+    } else {
+      const filteredsongs = this.state.songs.filter(el => {
+        return el.title
+          .toLowerCase()
+          .includes(this.state.formInputText.toLowerCase());
+      });
 
-    this.setState({
-      songs: filteredsongs,
-      searched:true,
-      formInputText:''
-    });
-  }
+      this.setState({
+        songs: filteredsongs,
+        searched: true,
+        formInputText: ""
+      });
+    }
   };
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
 
     return (
       <>
@@ -90,7 +93,7 @@ class Songs extends Component {
                     </div>
                     <ul>
                       {" "}
-                      <SongsDisplay songs={this.state.songs} />{" "}
+                      <SongsDisplay songs={this.state.songs} songData={this.getSongs}/>{" "}
                     </ul>
                   </div>
                 </div>

@@ -13,16 +13,14 @@ class Favorites extends Component {
     this.favoriteASong = this.favoriteASong.bind(this);
   }
 
-  favoriteASong = () => {
+  favoriteASong = (e) => {
     // debugger
-    // console.log("attempt to favorite");
     let changeButtonPlaceholder =
       this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
     this.setState({
       toggle: changeButtonPlaceholder
     });
-    // e.preventDefault();
-    // console.log(song);
+    e.preventDefault();
     if (!this.state.liked) {
       this.setState({
         liked: true
@@ -33,25 +31,22 @@ class Favorites extends Component {
           song_id: this.props.songID
         })
         .then(res => {
-          console.log(res);
           console.log(res.data);
+          console.log(this.props)
+          debugger
+
         });
     } else {
-      this.setState({
-        liked: false
-      });
-      axios.delete(`/favorites/${this.props.songID}`).then(res => {
+      debugger
+      axios.delete(`/favorites/${this.props.songID}/1`)
+      .then(res => {
         console.log(res.data);
-      });
-    }
-  };
+        this.setState({
+          liked: false
+        });
+      })
 
-  toggleFavoriteButton = () => {
-    let changeButtonPlaceholder =
-      this.state.toggle === "Favorite" ? "UnFavorite" : "Favorite";
-    this.setState({
-      toggle: changeButtonPlaceholder
-    });
+    }
   };
 
   render() {

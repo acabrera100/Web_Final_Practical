@@ -29,7 +29,7 @@ class SongsDisplay extends Component {
   // }
 
   onSongClick = (song, e) => {
-    console.log(song);
+    // console.log(song);
     this.setState({
       [e.target.name]: e.target.value,
       id: ""
@@ -37,8 +37,12 @@ class SongsDisplay extends Component {
   };
 
   render() {
-    // console.log(this.renderComments());
+    console.log(this.props);
     let songsList = this.props.songs.map((song, i) => {
+      let commentList = song.comments.map(comment=>{
+
+        return <li >{comment}</li>
+      })
       if (song.title.toLowerCase()) {
         return (
           <div className="li-box" key={i + 1}>
@@ -48,13 +52,13 @@ class SongsDisplay extends Component {
               </div>
               <div className="box-2">
                 <div>{song.title}</div>
-                <Favorites eachFavorite={song.favorites}  songID={song.id} />
+                <Favorites eachFavorite={song.favorites} favoriteSongData={this.props.songData} songID={song.id} />
               </div>
               <div className="box-3">
                 Posted by:
                 <Link to={"/profile/" + song.id}>{song.username}</Link>
               </div>
-              <div className="box-4">{song.comments}</div>
+              <div className="box-4"><ul>{commentList}</ul></div>
               <div className="box-6">
                 <CommentArea
                   songs={song}
