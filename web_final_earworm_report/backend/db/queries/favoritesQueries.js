@@ -37,10 +37,10 @@ const getAllFavoritesSpecificSong = (req, res, next) => {
 };
 
 const getAllFavoritesByUser = (req, res, next) => {
-  let userName = req.params.id;
+  let userId = req.params.id;
   db.any(
-    "SELECT favorites.id,song_id, title,username,favorites.user_id FROM favorites JOIN songs  ON favorites.song_id = songs.id JOIN users  ON favorites.user_id = users.id WHERE username = $1",
-    [userName]
+    "SELECT favorites.id,song_id, title,img_url,username,favorites.user_id FROM favorites JOIN songs  ON favorites.song_id = songs.id JOIN users  ON favorites.user_id = users.id WHERE favorites.user_id = $1",
+    [userId]
   )
     .then(data => {
       res.json({
@@ -56,6 +56,7 @@ const getAllFavoritesByUser = (req, res, next) => {
 };
 
 const createFavoriteOnSong = (req, res, next) => {
+  console.log(req.body);
   db.none(
     "INSERT INTO favorites(user_id,song_id) VALUES ( ${user_id}, ${song_id})",
     req.body
