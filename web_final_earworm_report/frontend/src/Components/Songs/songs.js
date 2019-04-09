@@ -1,3 +1,17 @@
+// Favoriting is almost working but defaults to showing the
+// favoite as always ready to be selected event when a song
+// may already be favorited.
+//
+// Comments need to have preventDefault and should
+// rerender without the refresh. This is what react is really
+// good at.
+
+//Search works but for second search and I have to enter
+// twice.
+
+//Genre page looks good. Favoriting page looks good too.
+
+
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import axios from "axios";
