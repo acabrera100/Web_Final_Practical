@@ -1,3 +1,12 @@
+// This profile page still needs some ironing out.
+// Every page is showing the felipe_queens profile.
+// The toggle between posted and favorited works really
+// wonky and the songs are missing their functionality that
+// the other pages have. All songs on profile
+// have the same comment even though I didn't make that comment.
+//After posting the song I couldn't find it in allSongs.
+
+
 import React, { Component } from "react";
 import axios from "axios";
 import { Route, Switch } from "react-router-dom";
@@ -77,7 +86,7 @@ class Profile extends Component {
     }
   };
   songsByUser = () => {
-  
+
     let songsPostedByUser = this.state.songsByUser.map((song, i) => {
       return (
         <li key={i + 1}>
