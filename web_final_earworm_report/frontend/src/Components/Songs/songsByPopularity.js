@@ -1,3 +1,8 @@
+// I'm seeing a LOT of repeats. I thinkk you're
+// printing out the song per each comment.
+// Instead we want to see the song once and have
+// it's comments listed beneath it. .
+
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";

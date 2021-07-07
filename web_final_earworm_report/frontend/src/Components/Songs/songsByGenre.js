@@ -1,3 +1,9 @@
+// This page is working better than before. 
+// However I don't want all the songs to come back on
+// the change. I just want to see filtered results
+// on the sumbit. Then when I change, nothing should
+// change until I hit submit again.
+
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
